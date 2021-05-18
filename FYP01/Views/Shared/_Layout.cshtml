@@ -93,6 +93,17 @@
             cursor: pointer;
         }
 
+        .bottomnav {
+            overflow: hidden;
+            background-color: #000000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+    
+
     </style>
 </head>
 <body>
@@ -105,22 +116,38 @@
             <li> <a href="#about">ABOUT</a></li>
             <li> <a href="#test">TESTIMONIALS</a></li>
             <li> <a href="#login">LOGIN</a></li>
-            <li> <a href="#cart"><img src="~/Logo/shoppingcart.png" width="24"/></a></li>
+            <li> <a href="#cart"><img src="~/Logo/shoppingcart.png" width="24" /></a></li>
         </ul>
-        
+
     </div>
 
-    <div class ="hero">
+    <div class="hero">
         <h1>MESAH DELICACIES</h1>
         <button class="button">PRE ORDER NOW</button>
-    </div>
 
-    <div class="row">
-         <div class="col-10">
-            @RenderBody()
-          </div>
-      <div class="col-2"></div>
-     </div>
+    </div>
+  
+    <div class="bottomnav">
+        <div class="col-2">Email: mesahdelicacies@gmail.com</div>
+        <div class="col-1">Facebook:<a href="https://www.facebook.com/MesahwithDelicacies/">MesahDelicacies</a></div>
+        <div class="col-1">Instagram:<a href="https://www.instagram.com/mesahdelicacies/">mesahdelicacies</a></div>
+        <div class="col-3">
+            Address:<a href="https://goo.gl/maps/WFLLFoErqyzPMyrq9">930 YISHUN AVENUE 2, #B1-13, NORTHPOINT SHOPPING CENTRE, S(769098)</a>
+        </div>
+        
+    </div>
+        <div class="row">
+            <div class="col-10">
+                @RenderBody()
+
+            </div>
+            <div class="col-2">
+
+            </div>
+
+        </div>
+
+
 
 
 </body>
