@@ -5,22 +5,24 @@
     <script>
         $(document).ready(function () {
             $(".login-form").hide();
+            $(".signup").css("background", "#47d147");
             $(".login").css("background", "#fff");
-            $(".signup").css("background", "#ffff66");
-
-            $(".login").click(function () {
-                $(".signup-form").hide();
-                $(".login-form").show();
-                $(".signup").css("background", "#fff");
-                $(".login").css("background", "#ffff66");
-            });
 
             $(".signup").click(function () {
                 $(".signup-form").show();
                 $(".login-form").hide();
-                $(".signup").css("background", "#ffff66");
+                $(".signup").css("background", "#fff");
+                $(".login").css("background", "#47d147");
+            });
+
+            $(".login").click(function () {
+                $(".signup-form").hide();
+                $(".login-form").show();
+                $(".signup").css("background", "#47d147");
                 $(".login").css("background", "#fff");
             });
+
+            
 
             $(".btn").click(function () {
                 $(".input").val("")
@@ -56,7 +58,7 @@
         }
 
         .signup,
-        .login {
+        .login{
             width: 50%;
             background: #fff;
             float: left;
@@ -67,14 +69,6 @@
             text-transform: uppercase;
         }
 
-        .signup-form{
-            background: #fff;
-            padding: 40px;
-            clear: both;
-            width: 100%;
-            box-sizing: border-box;
-            height: 800px;
-        }
         .login-form {
             background: #fff;
             padding: 40px;
@@ -83,6 +77,16 @@
             box-sizing: border-box;
             height: 400px;
         }
+
+        .signup-form{
+            background: #fff;
+            padding: 40px;
+            clear: both;
+            width: 100%;
+            box-sizing: border-box;
+            height: 800px;
+        }
+        
 
         .input {
             width: 100%;
@@ -149,6 +153,13 @@
             <div class="signup">Sign Up</div>
             <div class="login">Log In</div>
 
+            <div class="login-form">
+                <input type="text" placeholder="Email or Username" class="input"><br />
+                <input type="password" placeholder="Password" class="input"><br />
+                <div class="btn">log in</div>
+                <span><a href="#">Forgot username or password.</a></span>
+            </div>
+
             <div class="signup-form">
                 <input type="text" placeholder="Choose a Username" class="input"><br />
                 <input type="password" placeholder="Choose a Password" class="input"><br />
@@ -162,12 +173,7 @@
                 <div class="btn">Create account</div>
             </div>
 
-            <div class="login-form">
-                <input type="text" placeholder="Email or Username" class="input"><br />
-                <input type="password" placeholder="Password" class="input"><br />
-                <div class="btn">log in</div>
-                <span><a href="#">Forgot username or password.</a></span>
-            </div>
+
 
         </div>
     </div>
