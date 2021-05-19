@@ -30,5 +30,10 @@ namespace FYP01.Controllers
             return View();
         }
 
+        public IActionResult Testi()
+        {
+            return View();
+        }
+
     }
 }
