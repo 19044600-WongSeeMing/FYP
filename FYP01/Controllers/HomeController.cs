@@ -25,5 +25,9 @@ namespace FYP01.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return Login();
+        }
     }
 }

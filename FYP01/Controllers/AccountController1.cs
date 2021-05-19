@@ -12,6 +12,11 @@ namespace FYP01.Controllers
         {
             return View("Index");
         }
+
+        public IActionResult Login()
+        {
+            return Login();
+        }
     }
 }
 //yoddssghghvhjbjijijij
