@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using FYP01.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FYP01.Controllers
 {
