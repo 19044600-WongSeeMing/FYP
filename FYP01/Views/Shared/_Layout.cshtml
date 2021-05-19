@@ -16,149 +16,164 @@
 
     @RenderSection("ScriptSection", false)
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Gill Sans MT', Helvetica, sans-serif;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: 'Gill Sans MT', Helvetica, sans-serif;
+    }
 
-        .topnav {
-            overflow: hidden;
-            background-color: #F1EB22;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
+    .topnav {
+        overflow: hidden;
+        background-color: #F1EB22;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
 
         .topnav a {
-            justify-content:flex-end;
+            justify-content: flex-end;
             color: #f2f2f2;
             padding: 10px 12px;
             text-decoration: none;
             font-size: 17px;
+        }
 
-         }
+    ul {
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+    }
 
-         ul{
-             margin: 10px;
-             display: flex;
-             justify-content: center;
-          }
-            
-         ul li{
-                list-style-type: none;
-          }
-            
-         .topnav li a{
-             text-decoration: none;
-             display: block;
-             color: black;
-             margin-top: 15px;
-            }
-         .logo img{
-             width: 12%;
-          }
+        ul li {
+            list-style-type: none;
+        }
 
-        .topnav a:hover {
+    .topnav li a {
+        text-decoration: none;
+        display: block;
+        color: black;
+        margin-top: 15px;
+    }
+
+    .logo img {
+        width: 12%;
+    }
+
+    .topnav a:hover {
+        color: white;
+    }
+
+    .topnav a.active {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    .hero {
+        background-color: white;
+        color: #FFFFFF;
+        text-align: center;
+        font-family: 'Haettenschweiler';
+        padding: 200px;
+        padding-bottom: 350px;
+        background-image: url(/Logo/fb_photo.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+
+    .button {
+        background-color: #F0C415;
+        border: none;
+        color: white;
+        padding: 22px 35px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .footer {
+        overflow: hidden;
+        background-color: #000000;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .container {
+        display: flex;
+        font-family: 'Haettenschweiler';
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        padding-bottom: 350px;
+    }
+
+    .image {
+        margin-right: 20px;
+        margin-left: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .add-cart {
+        position: absolute;
+        width: 100%;
+        background-color:floralwhite;
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .image:hover .cart1, .image:hover .cart2, .image:hover .cart3, .image:hover .cart4 {
+        bottom: 50px;
+        opacity: 1;
+        padding: 10px;
+        text-decoration: none;
+    }
+
+    footer {
+        overflow: hidden;
+        background-color: #222222;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+        footer a {
             color: white;
+            margin: 2%
         }
 
-        .topnav a.active {
-             background-color: #04AA6D;
-             color: white;
-         }
+    .box1 {
+        flex: 3;
+        padding: 30px;
+    }
 
-        .hero {
-            background-color: white;
-            color: #FFFFFF;
-            text-align: center;
-            font-family: 'Haettenschweiler';
-            padding: 200px;
-            padding-bottom: 350px;
-            background-image: url(/Logo/fb_photo.jpg);
-            background-size: cover;
-            background-position: center;
-        }
+    .box2 {
+        flex: 1;
+        text-align: center;
+        margin-top: 40px;
+    }
 
-        .button {
-            background-color: #F0C415;
-            border: none;
-            color: white;
-            padding: 22px 35px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 24px;
-            cursor: pointer;
-        }
+    .background {
+        background-color: white;
+        color: #000000;
+        font-family: 'Haettenschweiler';
+        background-position: center;
+        background-image: url(/Logo/mesah2.jpg);
+        background-size: cover;
+    }
 
-        .footer {
-            overflow: hidden;
-            background-color: #000000;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .container {
-            display: flex;
-            font-family: 'Haettenschweiler';
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 50px;
-            padding-bottom: 350px;
-        }
-
-        .image{
-            margin-right:20px;
-            margin-left:20px;
-            position:relative;
-            overflow:hidden;
-        }
-
-        .add-cart{
-            position:absolute;
-            width:100%;
-            background-color:darkgrey;
-            transition: all 0.3s ease-in-out;
-            opacity:0;
-            cursor:pointer;
-            text-align:center;
-        }
-
-        .image:hover .cart1, .image:hover .cart2, .image:hover .cart3, .image:hover .cart4 {
-            bottom: 50px;
-            opacity: 1;
-            padding: 10px;
-            text-decoration: none;
-        }
-
-        footer {
-            overflow: hidden;
-            background-color: #222222;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-            footer a {
-                color: white;
-                margin: 2%
-            }
-
-        .box1 {
-            flex: 3;
-            padding: 30px;
-        }
-
-        .box2 {
-            flex: 1;
-            text-align: center;
-            margin-top: 40px;
-        }
-    
+    .menuAlign {
+        text-align: center;
+        color: #000000;
+        font-family: 'Haettenschweiler';
+        padding: 50px;
+    }
 
     </style>
 </head>
