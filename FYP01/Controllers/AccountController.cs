@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FYP01.Controllers
 {
-    public class AccountController1 : Controller
+    public class AccountController : Controller
     {
         public IActionResult Index()
         {
