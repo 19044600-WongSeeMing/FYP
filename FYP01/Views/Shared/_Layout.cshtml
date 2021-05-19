@@ -14,9 +14,8 @@
     <script src="~/lib/jquery/jquery.validate.min.js"></script>
     <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
 
-    @{ // TODO Lesson04 Task 2-1 Use RenderSection add a section named ScriptSection, this section is not compulsory
+    @RenderSection("ScriptSection", false)
 
-    }
     <style>
         body {
             margin: 0;
@@ -93,7 +92,7 @@
             cursor: pointer;
         }
 
-        .bottomnav {
+        .footer {
             overflow: hidden;
             background-color: #000000;
             color: white;
@@ -112,42 +111,22 @@
             <img src="~/Logo/With Slogan 2/mesah_delicacies_logo-12.png" alt="logo" />
         </div>
         <ul>
-            <li> <a href="#menu">MENU</a></li>
-            <li> <a href="#about">ABOUT</a></li>
-            <li> <a href="#test">TESTIMONIALS</a></li>
-            <li> <a href="#login">LOGIN</a></li>
-            <li> <a href="#cart"><img src="~/Logo/shoppingcart.png" width="24" /></a></li>
+            <li class="nav-item" > <a class="nav-link" asp-controller="Home" asp-action="Menu">MENU</a></li>
+            <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="About">ABOUT</a></li>
+            <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Testimonials">TESTIMONIALS</a></li>
+            <li class="nav-item"> <a class="nav-link" asp-controller="Account" asp-action="Login">LOGIN</a></li>
+            <li class="nav-item"> <a href="#shopping"><img src="~/Logo/shoppingcart.png" width="24" /></a></li>
         </ul>
 
     </div>
 
-    <div class="hero">
-        <h1>MESAH DELICACIES</h1>
-        <button class="button">PRE ORDER NOW</button>
-
-    </div>
-  
-    <div class="bottomnav">
-        <div class="col-2">Email: mesahdelicacies@gmail.com</div>
-        <div class="col-1">Facebook:<a href="https://www.facebook.com/MesahwithDelicacies/">MesahDelicacies</a></div>
-        <div class="col-1">Instagram:<a href="https://www.instagram.com/mesahdelicacies/">mesahdelicacies</a></div>
-        <div class="col-3">
-            Address:<a href="https://goo.gl/maps/WFLLFoErqyzPMyrq9">930 YISHUN AVENUE 2, #B1-13, NORTHPOINT SHOPPING CENTRE, S(769098)</a>
-        </div>
-        
-    </div>
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 @RenderBody()
 
             </div>
-            <div class="col-2">
-
-            </div>
 
         </div>
-
-
 
 
 </body>

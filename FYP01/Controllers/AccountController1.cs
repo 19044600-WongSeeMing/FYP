@@ -10,7 +10,12 @@ namespace FYP01.Controllers
     {
         public IActionResult Index()
         {
-            return View("Index");
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
         }
     }
 }
