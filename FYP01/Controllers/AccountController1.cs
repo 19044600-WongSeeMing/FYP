@@ -15,7 +15,7 @@ namespace FYP01.Controllers
 
         public IActionResult Login()
         {
-            return Login();
+            return View();
         }
     }
 }
