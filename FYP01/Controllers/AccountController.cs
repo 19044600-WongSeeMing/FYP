@@ -142,15 +142,15 @@ namespace FYP01.Controllers
                                Welcome to Mesah Delicacies!
                                Your userid is <b>{1}</b> and password is <b>{2}</b>.
                                <br/><br/>Manager";
-                    string title = "Registration Successul - Welcome";
+             //       string title = "Registration Successul - Welcome";
                     string message = String.Format(template, usr.FullName, usr.UserId, usr.UserPw);
-                    string result = "";
-
-                    bool outcome = false;
+                  //  string result = "";
+                    
+            //        bool outcome = false;
                     // TODO: L10 Task 2b - Call EmailUtl.SendEmail to send email
                     //                     Uncomment the following line with you are done
-          /*          outcome = EmailUtl.SendEmail(usr.Email, title, message, out result);
-                    if (outcome)
+           //         outcome = EmailUtl.SendEmail(usr.Email, title, message, out result);
+          /*          if (outcome)
                     {
                         ViewData["Message"] = "User Successfully Registered";
                         ViewData["MsgType"] = "success";
