@@ -4,23 +4,10 @@
 <head>
     <script>
         $(document).ready(function () {
-            $(".login-form").hide();
-            $(".signup").css("background", "#fff");
+            $(".login-form").show();
             $(".login").css("background", "#47d147");
 
-            $(".signup").click(function () {
-                $(".signup-form").show();
-                $(".login-form").hide();
-                $(".signup").css("background", "#fff");
-                $(".login").css("background", "#47d147");
-            });
-
-            $(".login").click(function () {
-                $(".signup-form").hide();
-                $(".login-form").show();
-                $(".signup").css("background", "#47d147");
-                $(".login").css("background", "#fff");
-            });
+            
 
             
 
@@ -56,9 +43,8 @@
             font-family: roboto;
         }
 
-        .login,
-        .signup {
-            width: 50%;
+        .login {
+            width: 100%;
             background: #fff;
             float: left;
             height: 60px;
@@ -78,14 +64,6 @@
             height: 400px;
         }
 
-        .signup-form{
-            background: #fff;
-            padding: 40px;
-            clear: both;
-            width: 100%;
-            box-sizing: border-box;
-            height: 800px;
-        }
         
 
         .input {
@@ -155,7 +133,7 @@
 
 
             <div class="login">Log In</div>
-            <div class="signup">Sign Up</div>
+            
 
             <div class="login-form">
                 <input type="text" placeholder="Email or Username" class="input"><br />
@@ -163,22 +141,6 @@
                 <div class="btn">log in</div>
                 <span><a href="#">Forgot username or password.</a></span>
             </div>
-
-            <div class="signup-form">
-                <input type="text" placeholder="Choose a Username" class="input"><br />
-                <input type="password" placeholder="Choose a Password" class="input"><br />
-                <input type="text" placeholder="Your Full Name" class="input"><br />
-                <input type="text" placeholder="Your Email Address" class="input"><br />
-                <input type="text" placeholder="Your House Address" class="input"><br />
-                <input type="text" placeholder="Your Postal Code" class="input"><br />
-                <input type="text" placeholder="Your Phone Number" class="input"><br />
-
-
-                <div class="btn">Create account</div>
-            </div>
-
-
-
 
         </div>
 
