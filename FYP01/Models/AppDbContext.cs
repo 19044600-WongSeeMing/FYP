@@ -27,11 +27,6 @@ namespace FYP01.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Details)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<MesahUser>(entity =>
@@ -88,8 +83,6 @@ namespace FYP01.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.ProductPicture).HasColumnType("image");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Product)

@@ -13,7 +13,6 @@ namespace FYP01.Models
 
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public string Details { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
     }
