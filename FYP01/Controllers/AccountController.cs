@@ -29,7 +29,7 @@ namespace FYP01.Controllers
         private const string REDIRECT_CNTR = "Performance";
         private const string REDIRECT_ACTN = "Index";
 
-        private const string LOGIN_VIEW = "UserLogin";
+        private const string LOGIN_VIEW = "Login";
 
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
