@@ -117,7 +117,7 @@ namespace FYP01.Controllers
         [AllowAnonymous]
         public IActionResult SignUp()
         {
-            return View("UserSignUp");
+            return View();
         }
 
         [AllowAnonymous]

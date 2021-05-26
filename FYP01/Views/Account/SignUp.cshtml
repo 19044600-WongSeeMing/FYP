@@ -4,17 +4,17 @@
 <head>
     <script>
         $(document).ready(function () {
-            $(".login-form").show();
-            $(".login").css("background", "#47d147");
+            $(".signup-form").show();
+            $(".signup").css("background", "#47d147");
 
-            
 
-            
+
+
 
             $(".btn").click(function () {
                 $(".input").val("")
             });
-            
+
         });
     </script>
     @section ScriptSection{
@@ -43,7 +43,7 @@
             font-family: roboto;
         }
 
-        .login {
+        .signup {
             width: 100%;
             background: #fff;
             float: left;
@@ -52,19 +52,19 @@
             text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            font-family:'Bernard MT';
+            font-family: 'Bernard MT';
         }
 
-        .login-form {
+        .signup-form {
             background: #fff;
             padding: 40px;
             clear: both;
             width: 100%;
             box-sizing: border-box;
-            height: 400px;
+            height: 780px;
         }
 
-        
+
 
         .input {
             width: 100%;
@@ -75,7 +75,6 @@
             color: #3e3e40;
             font-size: 14px;
             outline: none;
-            
         }
 
             .input:focus {
@@ -105,7 +104,6 @@
         span a {
             text-decoration: none;
             color: #000;
-            text-align: center;
         }
 
         ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -127,7 +125,6 @@
             color: #3e3e40;
             font-family: roboto;
         }
-
     </style>
 
     <title>Login Page</title>
@@ -138,15 +135,20 @@
         <div class="container">
 
 
-            <div class="login">Log In</div>
-            
+            <div class="signup">Sign Up</div>
 
-            <div class="login-form">
-                <input type="text" placeholder="Email or Username" class="input"><br />
-                <input type="password" placeholder="Password" class="input"><br />
-                <a class="button" asp-controller="Account" asp-action="Login">Login</a>
-                <a class="button" asp-controller="Account" asp-action="SignUp">Sign up</a>
-                <span><a href="#">Forgot username or password.</a></span>
+
+            <div class="signup-form">
+                <input type="text" placeholder="Choose a Username" class="input"><br />
+                <input type="password" placeholder="Choose a Password" class="input"><br />
+                <input type="text" placeholder="Your Full Name" class="input"><br />
+                <input type="text" placeholder="Your Email Address" class="input"><br />
+                <input type="text" placeholder="Your House Address" class="input"><br />
+                <input type="text" placeholder="Your Postal Code" class="input"><br />
+                <input type="text" placeholder="Your Phone Number" class="input"><br />
+
+
+                <a class="button" asp-controller="Account" asp-action="SignUp">Create Account</a>
             </div>
 
         </div>
