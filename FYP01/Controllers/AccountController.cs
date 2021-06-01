@@ -135,7 +135,7 @@ namespace FYP01.Controllers
                 // TODO: L10 Task 2a - Provide the SQL statement to register new member"
                 string insert =
                    @"INSERT INTO MesahUser(UserId, UserPw, FullName, Email, Address, PostalCode, Phone, UserRole) 
-                        VALUES('{0}',HASHBYTES('SHA1','{1}'),'{2}','{3}','{4}','{5}','{6}','member')";
+                        VALUES('{0}',HASHBYTES('SHA1','{1}'),'{2}','{3}','{4}','{5}','{6}','{7}','member')";
                 if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email,usr.Address,usr.PostalCode,usr.Phone,usr.UserRole) == 1)
                 {
                     ViewData["Message"] = "User Created";

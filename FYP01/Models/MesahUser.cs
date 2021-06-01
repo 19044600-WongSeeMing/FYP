@@ -9,10 +9,11 @@ namespace FYP01.Models
 {
     public partial class MesahUser
     {
-        [Required(ErrorMessage ="Please enter UserName!")]
+        [Required(ErrorMessage ="Please enter Username!")]
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Please enter User Password!")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Please enter Password!")]
         public byte[] UserPw { get; set; }
 
         [Required(ErrorMessage = "Please enter Full Name!")]
@@ -28,6 +29,7 @@ namespace FYP01.Models
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Please enter Phone Number!")]
+        [RegularExpression(@"[89]\d{7}", ErrorMessage ="Invalid phone number")]
         public string Phone { get; set; }
         public string UserRole { get; set; }
         public DateTime? LastLogin { get; set; }
