@@ -62,7 +62,6 @@ namespace FYP01.Controllers
                     if (Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
                 }
-
                 return RedirectToAction(REDIRECT_ACTN, REDIRECT_CNTR);
             }
         }
