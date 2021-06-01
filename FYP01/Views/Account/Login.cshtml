@@ -1,4 +1,4 @@
-﻿<!--rabak i dont think correct-->
+﻿@model MesahUser
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,14 +7,14 @@
             $(".login-form").show();
             $(".login").css("background", "#47d147");
 
-            
 
-            
+
+
 
             $(".btn").click(function () {
                 $(".input").val("")
             });
-            
+
         });
     </script>
     @section ScriptSection{
@@ -52,7 +52,7 @@
             text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            font-family:'Bernard MT';
+            font-family: 'Bernard MT';
         }
 
         .login-form {
@@ -64,7 +64,7 @@
             height: 400px;
         }
 
-        
+
 
         .input {
             width: 100%;
@@ -75,12 +75,26 @@
             color: #3e3e40;
             font-size: 14px;
             outline: none;
-            
         }
 
             .input:focus {
                 border: 2px solid #34b3a0;
             }
+
+        button {
+            width: 100%;
+            height: 60px;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #70db70;
+            color: #FFFFFF;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 15px;
+            border-radius: 15px;
+        }
 
         .button {
             width: 100%;
@@ -100,6 +114,11 @@
             .button:hover {
                 list-style-type: none;
                 text-decoration: none;
+            }
+
+            span{
+                margin-top:0px;
+                margin-bottom:0px;
             }
 
         span a {
@@ -127,30 +146,57 @@
             color: #3e3e40;
             font-family: roboto;
         }
-
     </style>
 
     <title>Login Page</title>
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="container">
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <div class="wrapper">
+            <div class="container">
 
 
-            <div class="login">Log In</div>
-            
+                <div class="login">Log In</div>
 
-            <div class="login-form">
-                <input type="text" placeholder="Email or Username" class="input"><br />
-                <input type="password" placeholder="Password" class="input"><br />
-                <a class="button" asp-controller="Account" asp-action="Login">Login</a>
-                <a class="button" asp-controller="Account" asp-action="SignUp">Sign up</a>
-                <span><a href="#">Forgot username or password.</a></span>
+                <div class="login-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Email or Username" class="input">
+
+                        <div class="col-sm-12">
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="input">
+
+                        <div class="col-sm-12">
+                            <span asp-validation-for="UserPw" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+
+                    <button type="submit">Login</button>
+                    <a class="button" asp-controller="Account" asp-action="SignUp">Sign up</a>
+                    <span><a href="#">Forgot username or password.</a></span>
+                </div>
+
             </div>
 
         </div>
+        @if (ViewData["Message"] != null)
+        {
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-6">
+                    <div class="alert alert-@ViewData["MsgType"]">
+                        @Html.Raw(ViewData["Message"])
+                    </div>
+                </div>
+            </div>
+        }
+    </form>
 
-    </div>
 </body>
 </html>
