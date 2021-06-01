@@ -132,34 +132,88 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="container">
+
+    <form asp-controller="Account" asp-action="SignUp" method="post">
+        <div class="wrapper">
+            <div class="container">
 
 
-            <div class="signup">Sign Up</div>
+                <div class="signup">Sign Up</div>
 
 
-            <div class="signup-form">
-                <div class="form-group row">
-                    <input class="form-control" placeholder="Choose a Username" asp-for="UserId" ><br />
+                <div class="signup-form">
+                    <div class="form-group row">
+                        <input class="form-control" placeholder="Choose a Username" asp-for="UserId"><br />
+                    </div>
+
+                    <div class="col-sm-4">
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+
+                    <div class=" form-group row">
+                        <input class="form-control" placeholder="Choose a Password" asp-for="UserPw"><br />
+                    </div>
+                    <div class="col-sm-4">
+                        <span asp-validation-for="UserPw" class="text-danger"></span>
+                    </div>
+
+                    <div class=" form-group row">
+                        <input class="form-control" placeholder="Your Full Name" asp-for="FullName"><br />
+                    </div>
+                    <div class="col-sm-4">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class=" form-group row">
+                        <input class="form-control" placeholder="Your Email Address" asp-for="Email"><br />
+                    </div>
+                    <div class="col-sm-4">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class=" form-group row">
+                        <input class="form-control" placeholder="Your House Address" asp-for="Address"><br />
+                    </div>
+
+                    <div class="col-sm-4">
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class=" form-group row">
+                        <input class="form-control" placeholder="Your Postal Code" asp-for="PostalCode"><br />
+                    </div>
+
+                    <div class="col-sm-4">
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+
+                    <div class=" form-group row">
+                        <input class="form-control" placeholder="Your Phone Number" asp-for="Phone"><br />
+                    </div>
+                    <div class="col-sm-4">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+
+                    <button type="submit">Create Account</button>
                 </div>
-                
-                <span asp-validation-for="UserId" class="text-danger"/>
 
-                <input class="form-control" placeholder="Choose a Password" asp-for="UserPw"><br />
-                <input class="form-control" placeholder="Your Full Name" asp-for="FullName"><br />
-   
-                <input class="form-control" placeholder="Your Email Address" asp-for="Email"><br />
-                <input class="form-control" placeholder="Your House Address" asp-for="Address"><br />
-                <input class="form-control" placeholder="Your Postal Code" asp-for="PostalCode"><br />
-                <input class="form-control" placeholder="Your Phone Number" asp-for="Phone"><br />
-
-
-                <a class="button" asp-controller="Account" asp-action="SignUp">Create Account</a>
             </div>
 
         </div>
+        @if (ViewData["Message"] != null)
+        {
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-6">
+                    <div class="alert alert-@ViewData["MsgType"]">
+                        @Html.Raw(ViewData["Message"])
+                    </div>
+                </div>
+            </div>
+        }
 
-    </div>
+    </form>
+    
 </body>
 </html>
