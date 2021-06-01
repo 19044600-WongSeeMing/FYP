@@ -14,7 +14,7 @@ namespace FYP01.Models
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter Password!")]
-        public byte[] UserPw { get; set; }
+        public String UserPw { get; set; }
 
         [Required(ErrorMessage = "Please enter Full Name!")]
         public string FullName { get; set; }

@@ -61,7 +61,7 @@
             clear: both;
             width: 100%;
             box-sizing: border-box;
-            height: 400px;
+            height: 100%;
         }
 
 
@@ -161,7 +161,7 @@
 
                 <div class="login-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Email or Username" class="input">
+                        <input type="text" placeholder="Email or Username" asp-for="UserId" class="input">
 
                         <div class="col-sm-12">
                             <span asp-validation-for="UserId" class="text-danger"></span>
@@ -170,7 +170,7 @@
                     
 
                     <div class="form-group">
-                        <input type="password" placeholder="Password" class="input">
+                        <input type="password" placeholder="Password" asp-for="UserPw" class="input">
 
                         <div class="col-sm-12">
                             <span asp-validation-for="UserPw" class="text-danger"></span>

@@ -24,9 +24,9 @@ namespace FYP01.Controllers
            @"UPDATE MesahUser SET LastLogin=GETDATE() WHERE UserId='{0}'";
 
         private const string ROLE_COL = "UserRole";
-        private const string NAME_COL = "FullName";
+        private const string NAME_COL = "UserId";
 
-        private const string REDIRECT_CNTR = "Performance";
+        private const string REDIRECT_CNTR = "Home";
         private const string REDIRECT_ACTN = "Index";
 
         private const string LOGIN_VIEW = "Login";
@@ -34,8 +34,7 @@ namespace FYP01.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
-            TempData["ReturnUrl"] = returnUrl;
-            return View(LOGIN_VIEW);
+            return View();
         }
 
         [AllowAnonymous]
@@ -151,12 +150,12 @@ namespace FYP01.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult VerifyUserID(string userId)
+        public IActionResult VerifyUserID(string UserId)
         {
-            string select = $"SELECT * FROM MesahUser WHERE UserId='{userId}'";
+            string select = $"SELECT * FROM MesahUser WHERE UserId='{UserId}'";
             if (DBUtl.GetTable(select).Rows.Count > 0)
             {
-                return Json($"[{userId}] already in use");
+                return Json($"[{UserId}] already in use");
             }
             return Json(true);
         }
