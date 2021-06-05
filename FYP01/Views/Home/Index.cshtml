@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     @section ScriptSection{
 
     }
@@ -17,35 +18,35 @@
             background-size: cover;
             background-position: center;
             width: 100%;
+            font-family: Raleway;
         }
 
         .button {
             background-color: #F0C415;
             border: none;
             color: white;
-            padding: 22px 35px;
+            padding: 20px 30px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
-            
         }
 
-        .button:hover {
-            background-color: #222222;
-            list-style-type: none;
-            text-decoration: none;
-        }
-
+            .button:hover {
+                opacity: 0.8;
+                color: white;
+                list-style-type: none;
+                text-decoration: none;
+            }
     </style>
     <title>Home Page</title>
 </head>
 
 <body>
     <div class="hero">
-        <h1>MESAH DELICACIES</h1>
-        <a class="button" asp-controller="Home" asp-action="Menu">PRE ORDER NOW</a>
+        <h1><b>MESAH DELICACIES</b></h1>
+        <a class="button" asp-controller="Home" asp-action="Menu">ORDER NOW</a>
 
     </div>
  
