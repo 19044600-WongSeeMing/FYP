@@ -2,21 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <script>
-        $(document).ready(function () {
-            $(".login-form").show();
-            $(".login").css("background", "#47d147");
 
-
-
-
-
-            $(".btn").click(function () {
-                $(".input").val("")
-            });
-
-        });
     </script>
     @section ScriptSection{
 
@@ -27,6 +15,7 @@
         * {
             margin: 0;
             padding: 0;
+            
         }
 
         body {
@@ -41,7 +30,8 @@
         .container {
             width: 450px;
             margin: 30px auto;
-            font-family: roboto;
+            font-size: 15px;
+            font-family: 'Inter';
         }
 
         form {
@@ -50,15 +40,21 @@
 
         .login {
             width: 100%;
-            background: #fff;
+            background: #2F5427;
+            background: -moz-linear-gradient(left, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
+            background: -webkit-linear-gradient(left, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
+            background: linear-gradient(to right, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
             float: left;
             height: 60px;
             line-height: 60px;
             text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            font-family: 'Raleway';
-            font-size:20px;
+            font-family: 'Inter';
+            font-size: 22px;
+            color: #000000;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
         .login-form {
@@ -68,6 +64,8 @@
             width: 100%;
             box-sizing: border-box;
             height: 100%;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius:15px;
         }
 
 
@@ -81,6 +79,7 @@
             color: #3e3e40;
             font-size: 14px;
             outline: none;
+            border-bottom-left-radius:20px
         }
 
             .input:focus {
@@ -88,8 +87,13 @@
             }
 
         button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
             width: 100%;
             height: 60px;
+            margin: auto;
             font-size: 18px;
             text-transform: uppercase;
             background-color: #70db70;
@@ -97,14 +101,18 @@
             font-weight: bold;
             letter-spacing: 1px;
             cursor: pointer;
+            text-align: center;
             border: none;
             margin-bottom: 15px;
-            border-radius: 15px;
+            border-radius: 30px;
         }
 
         .button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
             width: 100%;
-            background: #34b3a0;
             height: 60px;
             font-size: 18px;
             text-transform: uppercase;
@@ -114,10 +122,19 @@
             letter-spacing: 1px;
             cursor: pointer;
             margin-bottom: 15px;
-            border-radius: 15px
+            border: none;
+            text-align: center;
+            border-radius: 30px;
         }
 
+            button:hover {
+                color: #4AB848;
+                list-style-type: none;
+                text-decoration: none;
+            }
+
             .button:hover {
+                color: #4AB848;
                 list-style-type: none;
                 text-decoration: none;
             }
@@ -134,23 +151,23 @@
             }
 
         ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         ::-moz-placeholder { /* Firefox 19+ */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         :-ms-input-placeholder { /* IE 10+ */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         :-moz-placeholder { /* Firefox 18- */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
     </style>
 
@@ -163,11 +180,12 @@
             <div class="container">
 
 
-                <div class="login"><b>Log In</b></div>
+                <div class="login"><b>LOG IN</b></div>
 
                 <div class="login-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Email or Username" asp-for="UserId" class="input">
+                        <label><b>Username</b></label>
+                        <input type="text" placeholder="Username" asp-for="UserId" class="input">
 
                         <div class="col-sm-12">
                             <span asp-validation-for="UserId" class="text-danger"></span>
@@ -176,6 +194,7 @@
                     
 
                     <div class="form-group">
+                        <label><b>Password</b></label>
                         <input type="password" placeholder="Password" asp-for="UserPw" class="input">
 
                         <div class="col-sm-12">
@@ -183,10 +202,11 @@
                         </div>
                     </div>
                     
-
                     <button type="submit">Login</button>
                     <a class="button" asp-controller="Account" asp-action="SignUp">Sign up</a>
-                    <span><a href="#">Forgot username or password.</a></span>
+                    <br />
+                    <br/>
+                    <span><a href="#"><b>Forgot username or password</b></a></span>
                 </div>
 
             </div>
