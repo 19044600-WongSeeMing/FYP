@@ -250,12 +250,26 @@
         <div class="logo">
             <img src="~/Logo/With Slogan 2/mesah_delicacies_logo-12.png" alt="logo" />
         </div>
+
         <ul>
             <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a></li>
             <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Menu">MENU</a></li>
             <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="About">ABOUT</a></li>
             <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Testi">TESTIMONIALS</a></li>
-            <li class="nav-item"> <a class="nav-link" asp-controller="Account" asp-action="Login">LOGIN</a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("manager"))
+                {
+                    <partial name="_LayoutMember" />
+                }
+            }
+            else
+            {
+                <partial name="_LayoutGuest" />
+            }
+
+
+
             <li class="cart"> <a class="nav-link" asp-controller="Cart" asp-action="ShopCart"><img src="~/Logo/shoppingcart.png" width="24" /></a>
         </ul>
 
