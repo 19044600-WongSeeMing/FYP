@@ -34,14 +34,15 @@ namespace FYP01.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
-            return View();
+            TempData["ReturnUrl"] = returnUrl;
+            return View(LOGIN_VIEW);
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(MesahUser user)
+        public IActionResult Login(UserLogin user)
         {
-            if (!AuthenticateUser(user.UserId, user.UserPw, out ClaimsPrincipal principal))
+            if (!AuthenticateUser(user.UserID, user.Password, out ClaimsPrincipal principal))
             {
                 ViewData["Message"] = "Incorrect User ID or Password";
                 ViewData["MsgType"] = "warning";
@@ -54,7 +55,7 @@ namespace FYP01.Controllers
                    principal);
 
                 // Update the Last Login Timestamp of the User
-                DBUtl.ExecSQL(LASTLOGIN_SQL, user.UserId);
+                DBUtl.ExecSQL(LASTLOGIN_SQL, user.UserID);
 
                 if (TempData["returnUrl"] != null)
                 {
@@ -64,11 +65,6 @@ namespace FYP01.Controllers
                 }
                 return RedirectToAction(REDIRECT_ACTN, REDIRECT_CNTR);
             }
-        }
-
-        private bool AuthenticateUser(string userId, byte[] userPw, out ClaimsPrincipal principal)
-        {
-            throw new NotImplementedException();
         }
 
         [Authorize]
