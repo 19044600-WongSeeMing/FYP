@@ -24,9 +24,9 @@ namespace FYP01.Controllers
            @"UPDATE MesahUser SET LastLogin=GETDATE() WHERE UserId='{0}'";
 
         private const string ROLE_COL = "UserRole";
-        private const string NAME_COL = "FullName";
+        private const string NAME_COL = "UserId";
 
-        private const string REDIRECT_CNTR = "Performance";
+        private const string REDIRECT_CNTR = "Home";
         private const string REDIRECT_ACTN = "Index";
 
         private const string LOGIN_VIEW = "Login";
@@ -40,9 +40,9 @@ namespace FYP01.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(MesahUser user)
+        public IActionResult Login(UserLogin user)
         {
-            if (!AuthenticateUser(user.UserId, user.UserPw, out ClaimsPrincipal principal))
+            if (!AuthenticateUser(user.UserID, user.Password, out ClaimsPrincipal principal))
             {
                 ViewData["Message"] = "Incorrect User ID or Password";
                 ViewData["MsgType"] = "warning";
@@ -55,7 +55,7 @@ namespace FYP01.Controllers
                    principal);
 
                 // Update the Last Login Timestamp of the User
-                DBUtl.ExecSQL(LASTLOGIN_SQL, user.UserId);
+                DBUtl.ExecSQL(LASTLOGIN_SQL, user.UserID);
 
                 if (TempData["returnUrl"] != null)
                 {
@@ -63,14 +63,8 @@ namespace FYP01.Controllers
                     if (Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
                 }
-
                 return RedirectToAction(REDIRECT_ACTN, REDIRECT_CNTR);
             }
-        }
-
-        private bool AuthenticateUser(string userId, byte[] userPw, out ClaimsPrincipal principal)
-        {
-            throw new NotImplementedException();
         }
 
         [Authorize]
@@ -128,7 +122,7 @@ namespace FYP01.Controllers
             {
                 ViewData["Message"] = "Invalid Input";
                 ViewData["MsgType"] = "warning";
-                return View("UserRegister");
+                return View("SignUp");
             }
             else
             {
@@ -136,47 +130,27 @@ namespace FYP01.Controllers
                 string insert =
                    @"INSERT INTO MesahUser(UserId, UserPw, FullName, Email, Address, PostalCode, Phone, UserRole) 
                         VALUES('{0}',HASHBYTES('SHA1','{1}'),'{2}','{3}','{4}','{5}','{6}','member')";
-                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email,usr.Address,usr.PostalCode,usr.Phone) == 1)
+                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email,usr.Address,usr.PostalCode,usr.Phone,usr.UserRole) == 1)
                 {
-                    string template = @"Hi {0},<br/><br/>
-                               Welcome to Mesah Delicacies!
-                               Your userid is <b>{1}</b> and password is <b>{2}</b>.
-                               <br/><br/>Manager";
-             //       string title = "Registration Successul - Welcome";
-                    string message = String.Format(template, usr.FullName, usr.UserId, usr.UserPw);
-                  //  string result = "";
-                    
-            //        bool outcome = false;
-                    // TODO: L10 Task 2b - Call EmailUtl.SendEmail to send email
-                    //                     Uncomment the following line with you are done
-           //         outcome = EmailUtl.SendEmail(usr.Email, title, message, out result);
-          /*          if (outcome)
-                    {
-                        ViewData["Message"] = "User Successfully Registered";
-                        ViewData["MsgType"] = "success";
-                    }
-                    else
-                    {
-                        ViewData["Message"] = result;
-                        ViewData["MsgType"] = "warning";
-                    }*/
+                    ViewData["Message"] = "User Created";
+                    ViewData["MsgType"] = "success";
                 }
                 else
                 {
                     ViewData["Message"] = DBUtl.DB_Message;
                     ViewData["MsgType"] = "danger";
                 }
-                return View("UserRegister");
+                return View("Login");
             }
         }
 
         [AllowAnonymous]
-        public IActionResult VerifyUserID(string userId)
+        public IActionResult VerifyUserID(string UserId)
         {
-            string select = $"SELECT * FROM MesahUser WHERE UserId='{userId}'";
+            string select = $"SELECT * FROM MesahUser WHERE UserId='{UserId}'";
             if (DBUtl.GetTable(select).Rows.Count > 0)
             {
-                return Json($"[{userId}] already in use");
+                return Json($"[{UserId}] already in use");
             }
             return Json(true);
         }

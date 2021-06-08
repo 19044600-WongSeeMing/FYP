@@ -1,21 +1,10 @@
-﻿<!--rabak i dont think correct-->
+﻿@model UserLogin
 <!DOCTYPE html>
 <html>
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <script>
-        $(document).ready(function () {
-            $(".login-form").show();
-            $(".login").css("background", "#47d147");
 
-            
-
-            
-
-            $(".btn").click(function () {
-                $(".input").val("")
-            });
-            
-        });
     </script>
     @section ScriptSection{
 
@@ -26,12 +15,13 @@
         * {
             margin: 0;
             padding: 0;
+            
         }
 
         body {
             background: #e9eaea;
             user-select: none;
-            background-image: url(/Logo/login2.jpg);
+            background-image: url(/Logo/leaf6.jpg);
             background-size: cover;
             background-position: center;
             width: 100%;
@@ -40,19 +30,31 @@
         .container {
             width: 450px;
             margin: 30px auto;
-            font-family: roboto;
+            font-size: 15px;
+            font-family: 'Inter';
+        }
+
+        form {
+            padding: 70px;
         }
 
         .login {
             width: 100%;
-            background: #fff;
+            background: #2F5427;
+            background: -moz-linear-gradient(left, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
+            background: -webkit-linear-gradient(left, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
+            background: linear-gradient(to right, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
             float: left;
             height: 60px;
             line-height: 60px;
             text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            font-family:'Bernard MT';
+            font-family: 'Inter';
+            font-size: 22px;
+            color: #000000;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
         .login-form {
@@ -61,10 +63,12 @@
             clear: both;
             width: 100%;
             box-sizing: border-box;
-            height: 400px;
+            height: 100%;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius:15px;
         }
 
-        
+
 
         .input {
             width: 100%;
@@ -75,16 +79,40 @@
             color: #3e3e40;
             font-size: 14px;
             outline: none;
-            
+            border-bottom-left-radius:20px
         }
 
             .input:focus {
                 border: 2px solid #34b3a0;
             }
 
-        .button {
+        button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
             width: 100%;
-            background: #34b3a0;
+            height: 60px;
+            margin: auto;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #70db70;
+            color: #FFFFFF;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            margin-bottom: 15px;
+            border-radius: 30px;
+        }
+
+        .button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            width: 100%;
             height: 60px;
             font-size: 18px;
             text-transform: uppercase;
@@ -94,63 +122,108 @@
             letter-spacing: 1px;
             cursor: pointer;
             margin-bottom: 15px;
-            border-radius: 15px
+            border: none;
+            text-align: center;
+            border-radius: 30px;
         }
 
-            .button:hover {
+            button:hover {
+                color: #4AB848;
                 list-style-type: none;
                 text-decoration: none;
             }
 
-        span a {
-            text-decoration: none;
-            color: #000;
-            text-align: center;
+            .button:hover {
+                color: #4AB848;
+                list-style-type: none;
+                text-decoration: none;
+            }
+
+        span {
+            margin-top: 0px;
+            margin-bottom: 0px;
         }
 
+            span a {
+                text-decoration: none;
+                color: #000;
+                text-align: center;
+            }
+
         ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         ::-moz-placeholder { /* Firefox 19+ */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         :-ms-input-placeholder { /* IE 10+ */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         :-moz-placeholder { /* Firefox 18- */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
-
     </style>
 
     <title>Login Page</title>
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="container">
+    @if (ViewData["Message"] != null)
+    {
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-8">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    @Html.Raw(ViewData["Message"])
+                </div>
+            </div>
+        </div>
+    }
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <div class="wrapper">
+            <div class="container">
 
 
-            <div class="login">Log In</div>
-            
+                <div class="login"><b>LOG IN</b></div>
 
-            <div class="login-form">
-                <input type="text" placeholder="Email or Username" class="input"><br />
-                <input type="password" placeholder="Password" class="input"><br />
-                <a class="button" asp-controller="Account" asp-action="Login">Login</a>
-                <a class="button" asp-controller="Account" asp-action="SignUp">Sign up</a>
-                <span><a href="#">Forgot username or password.</a></span>
+                <div class="login-form">
+                    <div class="form-group">
+                        <label><b>Username</b></label>
+                        <input type="text" placeholder="Username" asp-for="UserID" class="input">
+
+                        <div class="col-sm-12">
+                            <span asp-validation-for="UserID" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label><b>Password</b></label>
+                        <input type="password" placeholder="Password" asp-for="Password" class="input">
+
+                        <div class="col-sm-12">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit">Login</button>
+                    <a class="button" asp-controller="Account" asp-action="SignUp">Sign up</a>
+                    <br />
+                    <br />
+                    <span><a href="#"><b>Forgot username or password</b></a></span>
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+    </form>
+
 </body>
 </html>

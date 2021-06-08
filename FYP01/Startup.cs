@@ -28,6 +28,11 @@ namespace FYP01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options => {
+                        options.LoginPath = "/Account/Login/";
+                        options.AccessDeniedPath = "/Account/Forbidden/";
+                    });
 
         }
 

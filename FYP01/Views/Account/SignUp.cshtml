@@ -1,22 +1,9 @@
-﻿<!--rabak i dont think correct-->
-@model MesahUser
+﻿@model MesahUser
 <!DOCTYPE html>
 <html>
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <script>
-        $(document).ready(function () {
-            $(".signup-form").show();
-            $(".signup").css("background", "#47d147");
-
-
-
-
-
-            $(".btn").click(function () {
-                $(".input").val("")
-            });
-
-        });
     </script>
     @section ScriptSection{
 
@@ -32,7 +19,7 @@
         body {
             background: #e9eaea;
             user-select: none;
-            background-image: url(/Logo/login2.jpg);
+            background-image: url(/Logo/leaf6.jpg);
             background-size: cover;
             background-position: center;
             width: 100%;
@@ -41,19 +28,31 @@
         .container {
             width: 450px;
             margin: 30px auto;
-            font-family: roboto;
+            font-size: 15px;
+            font-family: 'Inter';
+        }
+
+        form {
+            padding: 70px;
         }
 
         .signup {
             width: 100%;
-            background: #fff;
+            background: #2F5427;
+            background: -moz-linear-gradient(left, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
+            background: -webkit-linear-gradient(left, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
+            background: linear-gradient(to right, #2F5427 0%, #4AB848 25%, #C3FF96 100%);
             float: left;
             height: 60px;
             line-height: 60px;
             text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            font-family: 'Bernard MT';
+            font-family: 'Inter';
+            font-size: 22px;
+            color: #000000;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
         .signup-form {
@@ -62,7 +61,9 @@
             clear: both;
             width: 100%;
             box-sizing: border-box;
-            height: 780px;
+            height: 100%;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
         }
 
 
@@ -76,28 +77,36 @@
             color: #3e3e40;
             font-size: 14px;
             outline: none;
+            border-bottom-left-radius: 20px
         }
 
             .input:focus {
                 border: 2px solid #34b3a0;
             }
 
-        .button {
+        button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
             width: 100%;
-            background: #34b3a0;
             height: 60px;
+            margin: auto;
             font-size: 18px;
             text-transform: uppercase;
             background-color: #70db70;
-            color: #fff;
+            color: #FFFFFF;
             font-weight: bold;
             letter-spacing: 1px;
             cursor: pointer;
+            text-align: center;
+            border: none;
             margin-bottom: 15px;
-            border-radius: 15px
+            border-radius: 30px;
         }
 
-            .button:hover {
+            button:hover {
+                color: #4AB848;
                 list-style-type: none;
                 text-decoration: none;
             }
@@ -108,58 +117,153 @@
         }
 
         ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         ::-moz-placeholder { /* Firefox 19+ */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         :-ms-input-placeholder { /* IE 10+ */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
 
         :-moz-placeholder { /* Firefox 18- */
-            color: #3e3e40;
-            font-family: roboto;
+            color: lightgrey;
+            font-family: Inter;
         }
     </style>
 
-    <title>Login Page</title>
+    <title>SignUp Page</title>
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="container">
-
-
-            <div class="signup">Sign Up</div>
-
-
-            <div class="signup-form">
-                <div class="form-group row">
-                    <input class="form-control" placeholder="Choose a Username" asp-for="UserId" ><br />
+    @if (ViewData["Message"] != null)
+    {
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-8">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    @Html.Raw(ViewData["Message"])
                 </div>
-                
-                <span asp-validation-for="UserId" class="text-danger"/>
-
-                <input class="form-control" placeholder="Choose a Password" asp-for="UserPw"><br />
-                <input class="form-control" placeholder="Your Full Name" asp-for="FullName"><br />
-   
-                <input class="form-control" placeholder="Your Email Address" asp-for="Email"><br />
-                <input class="form-control" placeholder="Your House Address" asp-for="Address"><br />
-                <input class="form-control" placeholder="Your Postal Code" asp-for="PostalCode"><br />
-                <input class="form-control" placeholder="Your Phone Number" asp-for="Phone"><br />
+            </div>
+        </div>
+    }
+    <form asp-controller="Account" asp-action="SignUp" method="post">
+        <div class="wrapper">
+            <div class="container">
 
 
-                <a class="button" asp-controller="Account" asp-action="SignUp">Create Account</a>
+                <div class="signup"><b>Sign Up</b></div>
+
+                <div class="signup-form">
+                    <div class="form-group">
+                        <label class="'control-label col-sm-5" asp-for="UserId"><b>Username</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="UserId" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label class="'control-label col-sm-5" asp-for="UserPw"><b>Password</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="UserPw" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="UserPw" class="text-danger"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label class="'control-label col-sm-5" asp-for="FullName"><b>Name</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="FullName" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label class="'control-label col-sm-5" asp-for="Email"><b>Email</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="Email" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label class="'control-label col-sm-8" asp-for="Address"><b>House Address</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="Address" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label class="'control-label col-sm-10" asp-for="PostalCode"><b>Postal Code (Singapore)</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="PostalCode" value="S"/>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label class="'control-label col-sm-10" asp-for="Phone"><b>Phone Number (+65)</b></label>
+                        <div class="col-sm-12">
+                            <input class="form-control" asp-for="Phone" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <br>
+                    <button type="submit">Create Account</button>
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+    </form>
+
 </body>
 </html>
