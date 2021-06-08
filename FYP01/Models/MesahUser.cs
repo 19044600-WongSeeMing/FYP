@@ -14,18 +14,21 @@ namespace FYP01.Models
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter Password!")]
+        [StringLength(maximumLength:12,ErrorMessage ="Minimum 5 characters, Maximum 12 characters",MinimumLength =5)]
         public String UserPw { get; set; }
 
         [Required(ErrorMessage = "Please enter Full Name!")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Please enter Email!")]
+        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage ="Invalid email address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter Address!")]
         public string Address { get; set; }
         
         [Required(ErrorMessage = "Please enter Postal Code!")]
+        [StringLength(maximumLength:7,ErrorMessage ="Please enter correct postal code format")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Please enter Phone Number!")]
