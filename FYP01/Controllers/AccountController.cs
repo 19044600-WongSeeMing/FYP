@@ -137,14 +137,14 @@ namespace FYP01.Controllers
                 if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email,usr.Address,usr.PostalCode,usr.Phone,usr.UserRole) == 1)
                 {
                     ViewData["Message"] = "User Created";
-                    ViewData["MsgType"] = "Success";
+                    ViewData["MsgType"] = "success";
                 }
                 else
                 {
                     ViewData["Message"] = DBUtl.DB_Message;
                     ViewData["MsgType"] = "danger";
                 }
-                return RedirectToAction("Login");
+                return View("Login");
             }
         }
 
