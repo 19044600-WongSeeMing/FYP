@@ -11,6 +11,7 @@ namespace FYP01.Models
     public partial class MesahUser
     {
         [Required(ErrorMessage ="Please enter Username!")]
+        [Remote(action: "VerifyUserID", controller: "Account")]
         public string UserId { get; set; }
 
         [DataType(DataType.Password)]
