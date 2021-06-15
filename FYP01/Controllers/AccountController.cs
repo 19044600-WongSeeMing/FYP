@@ -177,5 +177,21 @@ namespace FYP01.Controllers
             return false;
         }
 
+        [Authorize]
+        public IActionResult EditProfile(int id)
+        {
+            string select = @"SELECT * FROM MesahUser WHERE UserId = '{0}'";
+            List<MesahUser> list = DBUtl.GetList<MesahUser>(select,id);
+            if (list.Count == 1)
+            {
+                return View(list[0]);
+            }
+            else
+            {
+                TempData["Message"] = "Data not found";
+                TempData["MsgType"] = "warning";
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

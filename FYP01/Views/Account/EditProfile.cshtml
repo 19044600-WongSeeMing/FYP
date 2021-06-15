@@ -1,0 +1,105 @@
+﻿@model MesahUser
+
+<form asp-controller="Account" asp-action="EditProfile" method="post">
+    <div class="form-group">
+        <label class="'control-label col-sm-5" asp-for="UserId"><b>Username</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="UserId" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="UserId" class="text-danger"></span>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label class="'control-label col-sm-5" asp-for="UserPw"><b>Password</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="UserPw" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="UserPw" class="text-danger"></span>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label class="'control-label col-sm-5" asp-for="FullName"><b>Name</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="FullName" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label class="'control-label col-sm-5" asp-for="Email"><b>Email</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="Email" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label class="'control-label col-sm-8" asp-for="Address"><b>House Address</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="Address" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label class="'control-label col-sm-10" asp-for="PostalCode"><b>Postal Code (Singapore)</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="PostalCode" value="S" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="PostalCode" class="text-danger"></span>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label class="'control-label col-sm-10" asp-for="Phone"><b>Phone Number (+65)</b></label>
+        <div class="col-sm-12">
+            <input class="form-control" asp-for="Phone" />
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <br>
+    <button type="submit">Save</button>
+
+
+</form>
+
