@@ -10,6 +10,9 @@ using System.Data;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+
+
 
 namespace FYP01.Controllers
 {
@@ -178,10 +181,11 @@ namespace FYP01.Controllers
         }
 
         [Authorize]
-        public IActionResult EditProfile(int id)
+        public IActionResult EditProfile()
         {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             string select = @"SELECT * FROM MesahUser WHERE UserId = '{0}'";
-            List<MesahUser> list = DBUtl.GetList<MesahUser>(select,id);
+            List<MesahUser> list = DBUtl.GetList<MesahUser>(select,userid);
             if (list.Count == 1)
             {
                 return View(list[0]);
