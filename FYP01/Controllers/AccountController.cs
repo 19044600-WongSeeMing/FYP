@@ -197,5 +197,28 @@ namespace FYP01.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditProfile(MesahUser mesah)
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            string sql = @"UPDATE MesahUser
+                                    SET FullName ='{1}', Email ='{2}',
+                                  Address = '{3}', PostalCode = '{4}', Phone ='{5}'
+                            WHERE UserId = '{0}'";
+
+            if (DBUtl.ExecSQL(sql, userid, mesah.FullName, mesah.Email, mesah.Address, mesah.PostalCode, mesah.Phone) == 1)
+            {
+                ViewData["Message"] = "Profile Updated";
+                ViewData["MsgType"] = "success";
+            }
+            else
+            {
+                ViewData["Message"] = DBUtl.DB_Message;
+                ViewData["MsgType"] = "danger";
+            }
+            return View("EditProfile");
+        }
     }
 }
