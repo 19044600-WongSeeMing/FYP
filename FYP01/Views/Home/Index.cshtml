@@ -54,11 +54,28 @@
             </div>
         </div>
     }
-    <div class="hero">
+<div class="hero">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("manager"))
+        {
+            <h1><b>MESAH DELICACIES</b></h1>
+            <a class="button" asp-controller="Account" asp-action="EditProfile">WELCOME @User.Identity.Name</a>
+        }
+        else
+        {
+            <h1><b>MESAH DELICACIES</b></h1>
+            <a class="button" asp-controller="Home" asp-action="Menu">ORDER NOW</a>
+        }
+    }
+    else
+    {
         <h1><b>MESAH DELICACIES</b></h1>
         <a class="button" asp-controller="Home" asp-action="Menu">ORDER NOW</a>
+    }
 
-    </div>
+</div>
 
 </body>
 </html>

@@ -1,6 +1,39 @@
-﻿<li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a></li>
+﻿
+
+<li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a></li>
 <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Menu">MENU</a></li>
 <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="About">ABOUT</a></li>
 <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Testi">TESTIMONIALS</a></li>
-<li class="nav-item"> <a class="nav-link" asp-controller="Account" asp-action="Logoff">LOGOUT</a></li>
-<li class="cart"> <a class="nav-link" asp-controller="Cart" asp-action="ShopCart"><img src="~/Logo/shoppingcart.png" width="24" /></a>
+<li class="nav-item">
+    <a class="dropbtn" onclick="myFunction()">
+        @User.Identity.Name
+    <i class="fa fa-caret-down"></i>
+</a>
+
+<div class="dropdown-content" id="myDropdown">
+    <a asp-controller="Account" asp-action="Logoff">Logout</a>
+    <a asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
+
+</div>
+
+<li class="cart">
+    <a class="nav-link" asp-controller="Cart" asp-action="ShopCart"><img src="~/Logo/shoppingcart.png" width="24" /></a>
+
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
+            }
+        }
+    </script>

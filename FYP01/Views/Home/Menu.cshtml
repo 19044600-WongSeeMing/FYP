@@ -6,6 +6,84 @@
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <style>
+
+        .container {
+            display: flex;
+            font-family: 'Haettenschweiler';
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            padding-bottom: 350px;
+        }
+
+        .image {
+            margin-right: 20px;
+            margin-left: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-cart {
+            position: absolute;
+            width: 100%;
+            background-color: floralwhite;
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .image:hover .cart1, .image:hover .cart2, .image:hover .cart3, .image:hover .cart4 {
+            bottom: 50px;
+            opacity: 1;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        footer {
+            overflow: hidden;
+            background-color: #222222;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+        }
+
+            footer a {
+                color: white;
+                margin: 2%
+            }
+
+        .box1 {
+            flex: 3;
+            padding: 30px;
+        }
+
+        .box2 {
+            flex: 1;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .background {
+            color: #000000;
+            font-family: 'Haettenschweiler';
+            background-position: center;
+            /* background-image: url(/Logo/leave.jpg);*/
+            /*background-image: url(/Logo/leave.jpg);
+        background-size: cover;*/
+        }
+
+
+
+        .menuAlign {
+            text-align: center;
+            color: #000000;
+            font-family: 'Haettenschweiler';
+            padding: 50px;
+        }
+
         h1 {
             font-family: "Inter" ;
             background-color: white;
@@ -13,7 +91,7 @@
         }
 
         .container {
-            background-color: white;
+            background-color: black;
             font-family: "Inter"
         }
     </style>

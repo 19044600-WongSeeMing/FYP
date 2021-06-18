@@ -101,148 +101,10 @@
         width: 100%;
     }
 
-    .container{
-        display: flex;
-        font-family: 'Haettenschweiler';
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 50px;
-        padding-bottom: 350px;
-    }
-
-    .image {
-        margin-right: 20px;
-        margin-left: 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .add-cart {
-        position: absolute;
-        width: 100%;
-        background-color:floralwhite;
-        transition: all 0.3s ease-in-out;
-        opacity: 0;
-        cursor: pointer;
-        text-align: center;
-    }
-
-    .image:hover .cart1, .image:hover .cart2, .image:hover .cart3, .image:hover .cart4 {
-        bottom: 50px;
-        opacity: 1;
-        padding: 10px;
-        text-decoration: none;
-    }
-
-    footer {
-        overflow: hidden;
-        background-color: #222222;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        position: absolute;
-    }
-
-        footer a {
-            color: white;
-            margin: 2%
-        }
-
-    .box1 {
-        flex: 3;
-        padding: 30px;
-    }
-
-    .box2 {
-        flex: 1;
-        text-align: center;
-        margin-top: 40px;
-    }
-
-    .background {
-        color: #000000;
-        font-family: 'Haettenschweiler';
-        background-position: center;
-        /* background-image: url(/Logo/leave.jpg);*/
-        /*background-image: url(/Logo/leave.jpg);
-        background-size: cover;*/
-    }
-
     
 
-    .menuAlign {
-        text-align: center;
-        color: #000000;
-        font-family: 'Haettenschweiler';
-        padding: 50px;
-    }
 
-
-
-    /*cart page*/
-
-    /*.product-container {
-        max-width: 650px;
-        justify-content: space-around;
-        margin: 0 auto;
-        margin-top: 50px;
-      
-    }*/ 
-
-    .cart-page{
-        margin:80px auto;
-      
-    }
-    table{
-        width:100%;
-        border-collapse:collapse;
-    }
-    .cart-info{
-        display:flex;
-        flex-wrap:wrap;
-    }
-    th{
-        text-align:left;
-        padding:5px;
-        color:#fff;
-        background:#ff523b;
-        font-weight:normal;
-    }
-    td{
-        padding:10px 5px;
-    }
-    td input{
-        width:40px;
-        height:30px;
-        padding:5px;
-    }
-    td a {
-            color: #ff523b;
-            font-size:12px;
-        }
-    td img{
-        width:80px;
-        height:80px;
-        margin-right:10px;
-    }
     
-    .total-price{
-        display:flex;
-        justify-content:flex-end;
-    }
-
-    .total-price table{
-        border-top:3px solid #ff523b;
-        width:100%;
-        max-width:400px;
-    }
-   td:last-child{
-        text-align:right;
-    }
-    th:last-child {
-        text-align: right;
-    }
 
     .dropdown {
         float: left;
@@ -289,10 +151,10 @@
             {
                 if (User.IsInRole("manager"))
                 {
-                    <partial name="_LayoutMember" />
+                    <partial name="_LayoutMgr" />
                 }
                 else{
-                    <partial name="_LayoutMgr" />
+                    <partial name="_LayoutMember" />
                 }
             }
             else
