@@ -6,132 +6,528 @@
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <style>
-
-        .container {
-            display: flex;
-            font-family: 'Haettenschweiler';
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 50px;
-            padding-bottom: 350px;
+       
+        .container{
+            width:88vw;
+            margin:0 auto;
         }
 
-        .image {
-            margin-right: 20px;
-            margin-left: 20px;
-            position: relative;
-            overflow: hidden;
+       .product{
+           margin:2rem;
+           position:relative;
+           display:grid;
+           grid-template-columns:repeat(2,1fr);
+       }
+
+       .product-content{
+           background:lightgray;
+           padding:3rem 0.5rem 2rem 0.5rem;
+           cursor:pointer;
+       }
+
+
+        .product-img {
+            background: white;
+            box-shadow: 0 0 20px 10px white;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            transition: background 0.5s ease;
         }
 
-        .add-cart {
-            position: absolute;
-            width: 100%;
-            background-color: floralwhite;
-            transition: all 0.3s ease-in-out;
-            opacity: 0;
-            cursor: pointer;
-            text-align: center;
+        .product-btns{
+            display:flex;
+            justify-content:center;
+            margin-top:1.4rem;
+            opacity:0;
+            transition:opacity 0.6s ease;
         }
 
-        .image:hover .cart1, .image:hover .cart2, .image:hover .cart3, .image:hover .cart4 {
-            bottom: 50px;
-            opacity: 1;
-            padding: 10px;
-            text-decoration: none;
+        .btn-cart, .btn-buy{
+            background:transparent;
+            border:1px solid black;
+            padding:0.8rem 0;
+            width:125px;
+            font-family:inherit;
+            text-transform:uppercase;
+            cursor:pointer;
+            border:none;
+            transition:all 0.6s ease;
         }
 
-        footer {
-            overflow: hidden;
-            background-color: #222222;
+        .btn-cart{
+            background:black;
+            color:white;
+        }
+
+        .btn-buy {
+            background: white;
+        }
+
+        .btn-cart:hover {
+            background: YellowGreen;
             color: white;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            position: absolute;
+        }
+        .btn-buy:hover {
+            background: YellowGreen;
+            color: white;
         }
 
-            footer a {
-                color: white;
-                margin: 2%
-            }
-
-        .box1 {
-            flex: 3;
-            padding: 30px;
+        .product-info {
+            background: OldLace;
+            padding: 2rem;
         }
 
-        .box2 {
-            flex: 1;
-            text-align: center;
-            margin-top: 40px;
+        .product-name {
+            color: black;
+            display: block;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
-        .background {
-            color: #000000;
-            font-family: 'Haettenschweiler';
-            background-position: center;
-            /* background-image: url(/Logo/leave.jpg);*/
-            /*background-image: url(/Logo/leave.jpg);
-        background-size: cover;*/
+        .product-price {
+            font-size: 1.5rem;
+            padding-top: 0.6rem;
+            padding-right: 0.6rem;
+            display: inline-block;
+            color: OliveDrab;
+            font-weight: bold;
         }
 
-
-
-        .menuAlign {
-            text-align: center;
-            color: #000000;
-            font-family: 'Haettenschweiler';
-            padding: 50px;
+        .product-img img{
+            transition:transform 0.6s ease;
         }
 
-        h1 {
-            font-family: "Inter" ;
-            background-color: white;
-        
+        .product:hover .product-img img{
+            transform:scale(1.1);
         }
 
-        .container {
-            background-color: black;
-            font-family: "Inter"
+        .product:hover .product-img {
+            background: YellowGreen;
         }
+
+        .product:hover .product-btns{
+            opacity:1;
+        }
+   
+
     </style>
     <title>Menu Page</title>
 </head>
 <body>
-    <div class="background">
-        <div class=" menuAlign">
-        <h1 ><b>MAIN &nbsp; DISH</b></h1>
-            </div>
     <div class="container">
-        <div class="image ">
-            <img src="~/FoodPics/ondeh.jpg" />
-            <h4>Ondeh Ondeh</h4>
-            <h5>$2.00</h5>
-            <a class="add-cart cart1" href="#">Add Cart</a>
-            <br />
+
+        <!--1st product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/ondeh.jpg" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Ondeh Ondeh</a>
+                <p class="product-price">$ 2.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fas fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
         </div>
-        
-        <div class="image ">
-            <img src="~/FoodPics/pulut.jpg" />
-            <h4>Pulut Urap</h4>
-            <h5>$3.00</h5>
-            <a class="add-cart cart2" href="#">Add Cart</a>
+        <!--end 1st product-->
+        <!--2nd product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/badak.jpg" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Badak Berendam 3pcs</a>
+                <p class="product-price">$ 3.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="image ">
-            <img src="~/FoodPics/nasiPadang.jpg" />
-            <h4>Nasi Padang</h4>
-            <h5>$7.50</h5>
-            <a class="add-cart cart3" href="#">Add Cart</a>
+        <!--end 2nd product-->
+        <!--3rd product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/pulut.jpg" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Pulut Wrap 4pcs</a>
+                <p class="product-price">$ 2.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="image ">
-            <img src="~/FoodPics/badak.jpg" />
-            <h4>Badak Berendam</h4>
-            <h5>$3.00</h5>
-            <a class="add-cart cart4" href="#">Add Cart</a>
+        <!--end 3rd product-->
+        <!--4th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Nasi Sambal Goreng with Ayam Rendang.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Nasi Sambal Goreng with Ayam Rendang</a>
+                <p class="product-price">$ 5.50</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
         </div>
+        <!--end 4th product-->
+        <!--5th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Nasi Sambal Goreng with Daging(Beef) Rendang.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Nasi Sambal Goreng with Daging(Beef) Rendang</a>
+                <p class="product-price">$ 6.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
         </div>
+        <!--end 5th product-->
+        <!--6th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Roti Boyan(Frozen).jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Roti Boyan(Frozen) 5pcs</a>
+                <p class="product-price">$ 14.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 6th product-->
+        <!--7th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Pau Kacang Merah.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Pau Kacang Merah 10pcs</a>
+                <p class="product-price">$ 10.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 7th product-->
+        <!--8th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Pau Sambal.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Pau Sambal 10pcs</a>
+                <p class="product-price">$ 10.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 8th product-->
+        <!--9th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Daging(Beef) Rendang.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Daging(Beef) Rendang</a>
+                <p class="product-price">$ 2.50</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 9th product-->
+        <!--10th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Paru Goreng.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Paru Goreng</a>
+                <p class="product-price">$ 1.50</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 10th product-->
+        <!--11th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Sambal Sotong.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Sambal Sotong</a>
+                <p class="product-price">$ 2.50</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 11th product-->
+        <!--12th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Urap.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Urap</a>
+                <p class="product-price">$ 5.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 12th product-->
+        <!--13th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Bergedil.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Bergedil</a>
+                <p class="product-price">$ 6.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 13th product-->
+        <!--14th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Sambal Tumis.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+                
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Sambal Tumis</a>
+                <p class="product-price">$ 3.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 14th product-->
+        <!--15th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Pulut Serunding.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Pulut Serunding 4pcs</a>
+                <p class="product-price">$ 4.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 15th product-->
+        <!--16th product-->
+        <div class="product">
+            <div class="product-content">
+                <div class="product-img">
+                    <img src="~/FoodPics/Nasi Ambeng.jpg" width="200" ;
+                         height="200" alt="product image">
+                </div>
+               
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Nasi Ambeng</a>
+                <p class="product-price">$ 8.00</p>
+                <div class="product-btns">
+                    <button type="button" class="btn-cart">
+                        add to cart
+                        <span><i class="fa-plus"></i></span>
+                    </button>
+                    <button type="button" class="btn-buy">
+                        buy now
+                        <span><i class="fa-shopping-cart"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--end 16th product-->
+
 
     </div>
-  
+
 </body>
 </html>
