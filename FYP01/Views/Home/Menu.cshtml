@@ -6,24 +6,24 @@
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <style>
-       
-        .container{
-            width:88vw;
-            margin:0 auto;
+
+        .container {
+            width: 88vw;
+            margin: 0 auto;
         }
 
-       .product{
-           margin:2rem;
-           position:relative;
-           display:grid;
-           grid-template-columns:repeat(2,1fr);
-       }
+        .product {
+            margin: 2rem;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+        }
 
-       .product-content{
-           background:lightgray;
-           padding:3rem 0.5rem 2rem 0.5rem;
-           cursor:pointer;
-       }
+        .product-content {
+            background: lightgray;
+            padding: 3rem 0.5rem 2rem 0.5rem;
+            cursor: pointer;
+        }
 
 
         .product-img {
@@ -36,29 +36,29 @@
             transition: background 0.5s ease;
         }
 
-        .product-btns{
-            display:flex;
-            justify-content:center;
-            margin-top:1.4rem;
-            opacity:0;
-            transition:opacity 0.6s ease;
+        .product-btns {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.4rem;
+            opacity: 0;
+            transition: opacity 0.6s ease;
         }
 
-        .btn-cart, .btn-buy{
-            background:transparent;
-            border:1px solid black;
-            padding:0.8rem 0;
-            width:125px;
-            font-family:inherit;
-            text-transform:uppercase;
-            cursor:pointer;
-            border:none;
-            transition:all 0.6s ease;
+        .btn-cart, .btn-buy {
+            background: transparent;
+            border: 1px solid black;
+            padding: 0.8rem 0;
+            width: 125px;
+            font-family: inherit;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: all 0.6s ease;
         }
 
-        .btn-cart{
-            background:black;
-            color:white;
+        .btn-cart {
+            background: black;
+            color: white;
         }
 
         .btn-buy {
@@ -69,6 +69,7 @@
             background: YellowGreen;
             color: white;
         }
+
         .btn-buy:hover {
             background: YellowGreen;
             color: white;
@@ -87,7 +88,7 @@
             font-weight: bold;
         }
 
-        .product-price {
+        .prices p {
             font-size: 1.5rem;
             padding-top: 0.6rem;
             padding-right: 0.6rem;
@@ -96,27 +97,158 @@
             font-weight: bold;
         }
 
-        .product-img img{
-            transition:transform 0.6s ease;
+        .product-img img {
+            transition: transform 0.6s ease;
         }
 
-        .product:hover .product-img img{
-            transform:scale(1.1);
+        .product:hover .product-img img {
+            transform: scale(1.1);
         }
 
         .product:hover .product-img {
             background: YellowGreen;
         }
 
-        .product:hover .product-btns{
-            opacity:1;
+        .product:hover .product-btns {
+            opacity: 1;
         }
-   
+
+        #cart-items {
+            position: absolute;
+            right: 130px;
+            top: 10px;
+            background-color: OldLace;
+            margin-top: 10px;
+            padding: 50px 40px;
+            z-index: 999;
+            color: OliveDrab;
+        }
+
+        .header {
+            width: 100%;
+            overflow: auto;
+            background-color: white;
+            color: #00a000;
+            clear: both;
+            padding: 20px 50px;
+            box-sizing: border-box;
+        }
+
+        .cart {
+            float: right;
+            text-align: center;
+            
+        }
+
+        .total-text p {
+            display: inline;
+            color: OliveDrab;
+        }
+
+        .remove {
+            margin-left: 10px;
+            font-size: 15px;
+            background-color: Transparent;
+            background-repeat: no-repeat;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
+        }
+        
+        .checkout{
+            background-color: white;
+            border-radius:4px;
+        }
+
+
 
     </style>
+
+
+    <script>
+        $(function () {
+
+            $("#cart-items").slideUp();
+            $(".cart").on("click", function () {
+                $("#cart-items").slideToggle();
+            });
+
+            $("#items-basket").text("(" + ($("#list-item").children().length) + ")");
+
+
+            $(".product").on("click", function () {
+                $("#cart-items").slideDown();
+                setTimeout(function () {
+                    $("#cart-items").slideUp();
+                }, 2000)
+                //add items to basket
+                $(this).each(function () {
+                    var name = $(this).children(".product-info").children(".product-name").text();
+                    var remove = "<button class='remove'> X </button>";
+                    var cena = "<span class='eachPrice'>" + (parseFloat($(this).children(".product-info").children(".prices").children(".price").text())) + "</span>";
+                    $("#list-item").append("<li>" + name + "&#09; - &#09;" + "$" + cena + remove +"</li>");
+                    
+
+                    //number of items in basket
+                    $("#items-basket").text("(" + ($("#list-item").children().length) + ")");
+                    $("#items-basket").text();
+
+                    //calculate total price
+                    var totalPrice = 0;
+                    $(".eachPrice").each(function () {
+                        var cenaEach = parseFloat($(this).text());
+                        totalPrice += cenaEach;
+                    });
+                    $("#total-price").text("$" + totalPrice);
+                });
+
+                //remove items from basket
+                $(".remove").on("click", function () {
+                    $(this).parent().remove();
+
+                    var totalPrice = 0;
+                    $(".eachPrice").each(function () {
+                        var cenaEach = parseFloat($(this).text());
+                        totalPrice += cenaEach;
+                    });
+                    $("#total-price").text("$" + totalPrice);
+                    $("#items-basket").text("(" + ($("#list-item").children().length) + ")");
+                });
+            });
+        })
+    </script>
+
     <title>Menu Page</title>
 </head>
 <body>
+
+    <div class="header">
+        <div class="cart">
+            <i class="fa fa-shopping-basket fa-2x"></i>
+            <i class="fa fa-caret-down"></i><br>
+            <div class="total-text">
+                <img src="~/Logo/shoppingcart.png" width="24" />
+                <p id="items-basket"></p>
+            </div>
+        </div>
+
+        <div id="cart-items">
+            <ol id="list-item">
+            </ol>
+
+            <div class="total-text">
+                <p>Total Amount: </p>
+                <p id="total-price"></p>
+            </div>
+
+            <button class="checkout" type="submit">Check Out</button>
+        </div>
+
+
+
+    </div>
+
     <div class="container">
 
         <!--1st product-->
@@ -125,15 +257,18 @@
                 <div class="product-img">
                     <img src="~/FoodPics/ondeh.jpg" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Ondeh Ondeh</a>
-                <p class="product-price">$ 2.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">2.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
-                        <span><i class="fas fa-plus"></i></span>
+                        <span><i class="fas fa-plus" id="basket"></i></span>
                     </button>
                     <button type="button" class="btn-buy">
                         buy now
@@ -149,11 +284,14 @@
                 <div class="product-img">
                     <img src="~/FoodPics/badak.jpg" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Badak Berendam 3pcs</a>
-                <p class="product-price">$ 3.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">3.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -173,11 +311,14 @@
                 <div class="product-img">
                     <img src="~/FoodPics/pulut.jpg" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Pulut Wrap 4pcs</a>
-                <p class="product-price">$ 2.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">2.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -198,11 +339,14 @@
                     <img src="~/FoodPics/Nasi Sambal Goreng with Ayam Rendang.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Nasi Sambal Goreng with Ayam Rendang</a>
-                <p class="product-price">$ 5.50</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">5.50</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -223,11 +367,14 @@
                     <img src="~/FoodPics/Nasi Sambal Goreng with Daging(Beef) Rendang.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Nasi Sambal Goreng with Daging(Beef) Rendang</a>
-                <p class="product-price">$ 6.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">6.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -248,20 +395,13 @@
                     <img src="~/FoodPics/Roti Boyan(Frozen).jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-                <div class="product-btns">
-                    <button type="button" class="btn-cart">
-                        add to cart
-                        <span><i class="fas fa-plus"></i></span>
-                    </button>
-                    <button type="button" class="btn-buy">
-                        buy now
-                        <span><i class="fa-shopping-cart"></i></span>
-                    </button>
-                </div>
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Roti Boyan(Frozen) 5pcs</a>
-                <p class="product-price">$ 14.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">14.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -282,11 +422,14 @@
                     <img src="~/FoodPics/Pau Kacang Merah.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Pau Kacang Merah 10pcs</a>
-                <p class="product-price">$ 10.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">10.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -307,11 +450,14 @@
                     <img src="~/FoodPics/Pau Sambal.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Pau Sambal 10pcs</a>
-                <p class="product-price">$ 10.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">10.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -332,11 +478,14 @@
                     <img src="~/FoodPics/Daging(Beef) Rendang.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Daging(Beef) Rendang</a>
-                <p class="product-price">$ 2.50</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">2.50</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -357,11 +506,14 @@
                     <img src="~/FoodPics/Paru Goreng.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Paru Goreng</a>
-                <p class="product-price">$ 1.50</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">1.50</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -382,11 +534,14 @@
                     <img src="~/FoodPics/Sambal Sotong.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Sambal Sotong</a>
-                <p class="product-price">$ 2.50</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">2.50</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -407,11 +562,14 @@
                     <img src="~/FoodPics/Urap.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Urap</a>
-                <p class="product-price">$ 5.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">5.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -432,11 +590,14 @@
                     <img src="~/FoodPics/Bergedil.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Bergedil</a>
-                <p class="product-price">$ 6.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">6.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -457,11 +618,14 @@
                     <img src="~/FoodPics/Sambal Tumis.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-                
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Sambal Tumis</a>
-                <p class="product-price">$ 3.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">3.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -482,11 +646,14 @@
                     <img src="~/FoodPics/Pulut Serunding.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Pulut Serunding 4pcs</a>
-                <p class="product-price">$ 4.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">4.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
@@ -507,11 +674,14 @@
                     <img src="~/FoodPics/Nasi Ambeng.jpg" width="200" ;
                          height="200" alt="product image">
                 </div>
-               
+
             </div>
             <div class="product-info">
                 <a href="#" class="product-name">Nasi Ambeng</a>
-                <p class="product-price">$ 8.00</p>
+                <div class="prices">
+                    <p>$</p>
+                    <p class="price">8.00</p>
+                </div>
                 <div class="product-btns">
                     <button type="button" class="btn-cart">
                         add to cart
