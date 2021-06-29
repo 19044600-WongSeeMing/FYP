@@ -27,7 +27,8 @@ namespace FYP01.Controllers
 
         public IActionResult Menu()
         {
-            return View();
+            List<Product> list = DBUtl.GetList<Product>("SELECT * FROM Product");
+            return View("Menu", list);
         }
 
         public IActionResult Testi()
