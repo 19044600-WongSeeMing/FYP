@@ -34,6 +34,13 @@ namespace FYP01.Controllers
 
         private const string LOGIN_VIEW = "Login";
 
+        private AppDbContext _dbContext;
+
+        public AccountController(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
@@ -219,6 +226,60 @@ namespace FYP01.Controllers
                 ViewData["MsgType"] = "danger";
             }
             return View("EditProfile");
+        }
+        [Authorize]
+        public JsonResult VerifyCurrentPassword(string CurrentPassword)
+        {
+            DbSet<MesahUser> dbs = _dbContext.MesahUser;
+            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            // TODO Lesson05 Task Solution - Use FromSqlInterpolated to retrieve AppUser with userid and password
+            var pw_bytes = System.Text.Encoding.ASCII.GetBytes(CurrentPassword);
+            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw= HASHBYTES('SHA1', {pw_bytes})").FirstOrDefault();
+
+            if (user != null)
+                return Json(true);
+            else
+                return Json(false);
+        }
+
+        [Authorize]
+        public JsonResult VerifyNewPassword(string NewPassword)
+        {
+            // TODO Lesson05 Task Solution - Similar to VerifyCurrentPassword but return true and false in reverse condition
+            DbSet<MesahUser> dbs = _dbContext.MesahUser;
+            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var npw_bytes = System.Text.Encoding.ASCII.GetBytes(NewPassword);
+
+            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw = HASHBYTES('SHA1', {npw_bytes})").FirstOrDefault();
+
+            if (user != null)
+                return Json(false);
+            else
+                return Json(true);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(PasswordUpdate pw)
+        {
+            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.NewPassword);
+            var cpw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.CurrentPassword);
+
+            if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE UserId={userid} AND UserPw = HASHBYTES('SHA1', {cpw_bytes})") == 1)
+
+                ViewData["Msg"] = "Password Successfully Updated!";
+            else
+
+                ViewData["Msg"] = "Failed to update password!";
+
+            return View();
         }
     }
 }
