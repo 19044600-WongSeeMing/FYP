@@ -136,7 +136,6 @@ namespace FYP01.Controllers
             }
             else
             {
-                // TODO: L10 Task 2a - Provide the SQL statement to register new member"
                 string insert =
                    @"INSERT INTO MesahUser(UserId, UserPw, FullName, Email, Address, PostalCode, Phone, UserRole) 
                         VALUES('{0}',HASHBYTES('SHA1','{1}'),'{2}','{3}','{4}','{5}','{6}','member')";
@@ -227,13 +226,13 @@ namespace FYP01.Controllers
             }
             return View("EditProfile");
         }
+        // member & manager change password
         [Authorize]
         public JsonResult VerifyCurrentPassword(string CurrentPassword)
         {
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            // TODO Lesson05 Task Solution - Use FromSqlInterpolated to retrieve AppUser with userid and password
             var pw_bytes = System.Text.Encoding.ASCII.GetBytes(CurrentPassword);
             MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw= HASHBYTES('SHA1', {pw_bytes})").FirstOrDefault();
 
@@ -246,7 +245,7 @@ namespace FYP01.Controllers
         [Authorize]
         public JsonResult VerifyNewPassword(string NewPassword)
         {
-            // TODO Lesson05 Task Solution - Similar to VerifyCurrentPassword but return true and false in reverse condition
+            
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -281,5 +280,84 @@ namespace FYP01.Controllers
 
             return View();
         }
+        //member & manager change username
+        public IActionResult ChangeUsername()
+        {
+            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ViewData["userid"] = userid;
+            DbSet<MesahUser> dbs = _dbContext.MesahUser;
+            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid}").FirstOrDefault();
+            ViewData["Username"] = user.UserId;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangeUsername(UserUpdate userUpdate)
+        {
+            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int num_affected = _dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserId = {userUpdate.NewUsername} WHERE UserId = {userid}");
+
+            if (num_affected == 1)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ViewData["Msg"] = "Failed to update username!";
+                return View();
+            }
+        }
+
+        [Authorize]
+        public JsonResult VerifyNewUsername(string NewUserName)
+        {
+            DbSet<MesahUser> dbs = _dbContext.MesahUser;
+            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {NewUserName}").FirstOrDefault();
+
+            if (user != null)
+                return Json(false);
+            else
+                return Json(true);
+        }
+
+
+
+        // member & manager forgot password
+        [AllowAnonymous]
+        public JsonResult VerifyEmail(string Email)
+        {
+            DbSet<MesahUser> dbs = _dbContext.MesahUser;
+            
+            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE Email= {Email}").FirstOrDefault();
+
+            if (user != null)
+                return Json(true);
+            else
+                return Json(false);
+        }
+  
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(PasswordUpdate pw)
+        {
+            var email = pw.Email;
+            var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.ForgotPassword);
+ 
+            if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE Email ={email}") == 1)
+
+                ViewData["Msg"] = "Password Successfully Updated!";
+            else
+
+                ViewData["Msg"] = "Failed to update password!";
+
+            return View();
+        }
+
     }
 }

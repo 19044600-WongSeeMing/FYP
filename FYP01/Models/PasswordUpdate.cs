@@ -24,5 +24,18 @@ namespace FYP01.Models
         [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "Password not confirmed!")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Cannot be empty!")]
+        [Remote("VerifyEmail", "Account", ErrorMessage = "Incorrect Email!")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Cannot be empty!")]
+        [DataType(DataType.Password)]
+        public string ForgotPassword { get; set; }
+
+        [Required(ErrorMessage = "Cannot be empty!")]
+        [DataType(DataType.Password)]
+        [Compare("ForgotPassword", ErrorMessage = "Password not confirmed!")]
+        public string ConfirmPassword2 { get; set; }
     }
 }

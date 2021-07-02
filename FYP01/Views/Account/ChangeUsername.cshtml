@@ -1,0 +1,122 @@
+﻿@model UserUpdate;
+
+
+@section ScriptSection{
+    <text>@ViewData["script"]</text>
+}
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #e9eaea;
+            user-select: none;
+            background-size: cover;
+            background-position: center;
+            background-image: url(/Logo/profileBG.jpg);
+            width: 100%;
+        }
+
+        form {
+            margin: 10px;
+            padding-left: 90px
+        }
+
+        button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            width: 25%;
+            height: 40px;
+            margin: auto;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #70db70;
+            color: #FFFFFF;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            margin-bottom: 45px;
+            border-radius: 30px;
+        }
+
+            button:hover {
+                color: #4AB848;
+                list-style-type: none;
+                text-decoration: none;
+            }
+
+        .changepassword {
+            margin-left: 18px;
+        }
+    </style>
+
+    <title>Change Password</title>
+</head>
+
+
+
+<body>
+    <h2 style="margin: 45px; font-family:Inter;">CHANGE PASSWORD</h2>
+    <span style="color:red; margin-left:40px">@ViewData["Msg"]</span>
+
+    <form asp-controller="Account" asp-action="ChangeUsername" method="post">
+
+
+        <div class="form-group">
+            <label class="'control-label col-sm-5" asp-for="CurrentUsername"><b>Current Password</b></label>
+            <div class="col-sm-4">
+                <input asp-for="CurrentUsername" class="form-control" value="@ViewData["userid"]" readonly="readonly" />
+            </div>
+
+            <div class="col-sm-12">
+                <span asp-validation-for="CurrentUsername" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="'control-label col-sm-5" asp-for="NewUsername"><b>New Username</b></label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="NewUsername" />
+            </div>
+
+            <div class="col-sm-12">
+                <span asp-validation-for="NewUsername" class="text-danger"></span>
+            </div>
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="'control-label col-sm-8" asp-for="ConfirmNewUsername"><b>Confirm New Username</b></label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="ConfirmNewUsername" />
+            </div>
+
+            <div class="col-sm-12">
+                <span asp-validation-for="ConfirmNewUsername" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+
+        <div class="form-group row">
+            <button type="submit">Update</button>
+        </div>
+
+    </form>
+
+</body>
