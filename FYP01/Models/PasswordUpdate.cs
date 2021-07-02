@@ -16,6 +16,7 @@ namespace FYP01.Models
 
         [Required(ErrorMessage = "Cannot be empty!")]
         [DataType(DataType.Password)]
+        [StringLength(maximumLength: 12, ErrorMessage = "Minimum 5 characters, Maximum 12 characters", MinimumLength = 5)]
         [Remote("VerifyNewPassword", "Account", ErrorMessage = "Cannot reuse password!")]
         public string NewPassword { get; set; }
 

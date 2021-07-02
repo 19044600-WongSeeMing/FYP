@@ -14,6 +14,7 @@
             user-select: none;
             background-size: cover;
             background-position: center;
+            background-image: url(/Logo/profileBG.jpg);
             width: 100%;
         }
 
@@ -27,7 +28,7 @@
             background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
             background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
             background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
-            width: 40%;
+            width: 25%;
             height: 40px;
             margin: auto;
             font-size: 18px;
@@ -39,7 +40,7 @@
             cursor: pointer;
             text-align: center;
             border: none;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
             border-radius: 30px;
         }
 
@@ -48,6 +49,11 @@
                 list-style-type: none;
                 text-decoration: none;
             }
+
+        .changepassword {
+            margin-left: 18px;
+        }
+
     </style>
 
     <title>Edit Profile</title>
@@ -133,12 +139,16 @@
 
         </div>
 
-        <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+        <a class="changepassword" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+
+        <br />
+        <br />
 
         <div class="form-group row">
             <button type="submit">Save</button>
         </div>
-        
+
+
 
     </form>
 
