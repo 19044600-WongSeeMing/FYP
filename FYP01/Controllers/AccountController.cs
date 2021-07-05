@@ -359,5 +359,13 @@ namespace FYP01.Controllers
             return View();
         }
 
+        [Authorize (Roles = "manager")]
+
+        public IActionResult ShowUsers()
+        {
+            List<MesahUser> list = DBUtl.GetList<MesahUser>("SELECT * FROM MesahUser");
+            return View("ShowUsers", list);
+        }
+
     }
 }

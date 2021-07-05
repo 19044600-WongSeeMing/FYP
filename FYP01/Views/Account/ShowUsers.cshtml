@@ -1,0 +1,28 @@
+﻿@model List<MesahUser>
+
+<style>
+    table {
+        padding: 40px;
+
+    }
+</style>
+
+<table class="table table-condensed table-hover">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Role</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number (+65)</th>
+    </tr>
+    @foreach (MesahUser row in Model)
+    {
+        <tr>
+            <td>@row.UserId</td>
+            <td>@row.UserRole</td>
+            <td>@row.FullName</td>
+            <td>@row.Email</td>
+            <td>@row.Phone</td>
+        </tr>
+    }
+</table>
