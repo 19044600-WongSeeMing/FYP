@@ -1,28 +1,41 @@
 ﻿@model List<MesahUser>
 
-<style>
-    table {
-        padding: 40px;
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Message"]
+    </div>
+}
 
-    }
-</style>
 
-<table class="table table-condensed table-hover">
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Role</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone Number (+65)</th>
-    </tr>
-    @foreach (MesahUser row in Model)
-    {
+<body>
+
+    <table class="table table-condensed table-hover">
         <tr>
-            <td>@row.UserId</td>
-            <td>@row.UserRole</td>
-            <td>@row.FullName</td>
-            <td>@row.Email</td>
-            <td>@row.Phone</td>
+            <th scope="col">ID</th>
+            <th scope="col">Role</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number (+65)</th>
+            <th scope="col">Action</th>
         </tr>
-    }
-</table>
+        @foreach (MesahUser row in Model)
+        {
+            <tr>
+                <td>@row.UserId</td>
+                <td>@row.UserRole</td>
+                <td>@row.FullName</td>
+                <td>@row.Email</td>
+                <td>@row.Phone</td>
+                <td>
+                    <a asp-controller="Account"
+                       asp-action="DeleteUser"
+                       asp-route-id="@row.UserId"
+                       onclick="return confirm('Delete User [@row.FullName]')">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+</body>
+

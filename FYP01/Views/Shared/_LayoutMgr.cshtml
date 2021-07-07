@@ -5,12 +5,11 @@
 <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="About">ABOUT</a></li>
 <li class="nav-item"> <a class="nav-link" asp-controller="Home" asp-action="Testi">TESTIMONIALS</a></li>
 <li class="nav-item">
-    <a class="dropbtn" onclick="myFunction()">
-        @User.Identity.Name
-        <i class="fa fa-caret-down"></i>
+    <a class="dropbtn " onclick="myFunction()">
+        @User.Identity.Name<i class="fa fa-caret-down" style="position:absolute; margin: 10px 10px 10px"></i>
     </a>
 
-    <div class="dropdown-content" id="myDropdown">
+    <div class="dropdown-content" id="myDropdown" style="margin-left:0px">
         <a asp-controller="Account" asp-action="EditProfile">My Profile</a>
         <a>Maintain Product</a>
         <a asp-controller="Account" asp-action="ShowUsers">Maintain User</a>
