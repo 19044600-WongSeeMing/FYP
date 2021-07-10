@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FYP01.Models;
+using Microsoft.AspNetCore.Http;
 
 
 namespace FYP01.Models
@@ -13,6 +14,8 @@ namespace FYP01.Models
         public int CategoryId { get; set; }
 
         public string Picture { get; set; }
+
+        public IFormFile Photo { get; set; }
 
         public virtual Category Category { get; set; }
     }

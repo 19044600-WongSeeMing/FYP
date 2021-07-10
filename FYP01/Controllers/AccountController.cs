@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 
 
-
 namespace FYP01.Controllers
 {
     public class AccountController : Controller
@@ -40,6 +39,7 @@ namespace FYP01.Controllers
         {
             _dbContext = dbContext;
         }
+
 
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
@@ -393,5 +393,7 @@ namespace FYP01.Controllers
             return RedirectToAction("ShowUsers");
         }
 
+        
+        }
+
     }
-}
