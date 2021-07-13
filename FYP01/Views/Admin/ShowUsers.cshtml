@@ -21,7 +21,13 @@
             box-sizing: border-box;
         }
         .table {
-            padding: 5px, 10px, 0px;
+            padding:30px;
+        }
+            .table th {
+                background-color: #EEEEEE;
+            }
+        #manager {
+            background-color: #F0C415;
         }
     </style>
 
@@ -29,7 +35,7 @@
 
 <body>
     <h2 style="margin: 45px; font-family:Inter;">ALL USERS</h2>
-    <a style=" margin: 10px;" asp-controller="Admin" asp-action="CreateUser">Create User</a>
+    <a style=" margin: 45px;" asp-controller="Admin" asp-action="CreateUser">Create User</a>
     <div class="table">
 
         <table class="table table-condensed table-hover">
@@ -44,12 +50,12 @@
             @foreach (MesahUser row in Model)
             {
                 <tr>
-                    <td>@row.UserId</td>
-                    <td>@row.UserRole</td>
-                    <td>@row.FullName</td>
-                    <td>@row.Email</td>
-                    <td>@row.Phone</td>
-                    <td>
+                    <td id="@row.UserRole">@row.UserId</td>
+                    <td id="@row.UserRole">@row.UserRole</td>
+                    <td id="@row.UserRole">@row.FullName</td>
+                    <td id="@row.UserRole">@row.Email</td>
+                    <td id="@row.UserRole">@row.Phone</td>
+                    <td id="@row.UserRole">
                         <a asp-controller="Admin"
                            asp-action="DeleteUser"
                            asp-route-id="@row.UserId"
