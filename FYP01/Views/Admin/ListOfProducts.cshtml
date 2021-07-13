@@ -1,0 +1,42 @@
+﻿@model DataRowCollection
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Message"]
+    </div>
+}
+
+<a asp-controller="Admin"
+   asp-action="AddProducts">
+    <i class="fas fa-plus"></i> Add New Product
+</a>
+
+<table class="table table-condensed table-hover">
+    <tr>
+        <th>Picture</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th style="text-align:center;">Action</th>
+    </tr>
+    @foreach (DataRow row in Model)
+    {
+        <tr>
+            <td>@row["Picture"]</td>
+            <td>@row["ProductName"]</td>
+            <td>@row["Price"]</td>
+            <td style="text-align: center;">
+                <a asp-controller="Admin"
+                   asp-action="Delete"
+                   asp-route-id="@row["ProductID"]">
+                    <i class="far fa-trash-alt"></i>
+                </a> |
+                <a asp-controller="Admin"
+                   asp-action="Update"
+                   asp-route-id="@row["ProductId"]">
+                    <i class="far fa-edit"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</table>

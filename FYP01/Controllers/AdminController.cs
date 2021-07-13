@@ -19,6 +19,12 @@ namespace FYP01.Controllers
     public class AdminController : Controller
     {
 
+        public IActionResult ListOfProducts()
+        {
+            DataTable dt = DBUtl.GetTable("SELECT * FROM Product");
+            return View("ListOfProducts", dt.Rows);
+        }
+
         public IActionResult AddProducts()
         {
             return View();
