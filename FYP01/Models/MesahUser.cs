@@ -17,7 +17,7 @@ namespace FYP01.Models
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter Password!")]
         [StringLength(maximumLength:12,ErrorMessage ="Minimum 5 characters, Maximum 12 characters",MinimumLength =5)]
-        public byte[] UserPw { get; set; }
+        public string UserPw { get; set; }
 
         [Required(ErrorMessage = "Please enter Full Name!")]
         public string FullName { get; set; }

@@ -78,5 +78,74 @@ namespace FYP01.Controllers
         {
             _env = environment;
         }
+
+        [Authorize(Roles ="manager")]
+        public IActionResult ShowUsers()
+        {
+            List<MesahUser> list = DBUtl.GetList<MesahUser>("SELECT * FROM MesahUser");
+            return View("ShowUsers", list);
+        }
+
+        [Authorize(Roles = "manager")]
+        public IActionResult DeleteUser(string id)
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (userid.Equals(id, StringComparison.InvariantCultureIgnoreCase))
+            {
+                TempData["Message"] = "Own ID cannot be deleted";
+                TempData["MsgType"] = "warning";
+            }
+            else
+            {
+                string delete = "DELETE FROM MesahUser WHERE UserId='{0}'";
+                int res = DBUtl.ExecSQL(delete, id);
+                if (res == 1)
+                {
+                    TempData["Message"] = "User Record Deleted";
+                    TempData["MsgType"] = "success";
+                }
+                else
+                {
+                    TempData["Message"] = DBUtl.DB_Message;
+                    TempData["MsgType"] = "danger";
+                }
+            }
+            return RedirectToAction("ShowUsers");
+        }
+        [Authorize(Roles = "manager")]
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public IActionResult CreateUser(MesahUser usr)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Message"] = "Invalid Input";
+                ViewData["MsgType"] = "warning";
+                return View("CreateUser");
+            }
+            else
+            {
+                string insert =
+                   @"INSERT INTO MesahUser(UserId, UserPw, FullName, Email, Address, PostalCode, Phone, UserRole) 
+                        VALUES('{0}',HASHBYTES('SHA1','{1}'),'{2}','{3}','{4}','{5}','{6}','{7}')";
+                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email, usr.Address, usr.PostalCode, usr.Phone, usr.UserRole) == 1)
+                {
+                    ViewData["Message"] = "User Created";
+                    ViewData["MsgType"] = "success";
+                }
+                else
+                {
+                    ViewData["Message"] = DBUtl.DB_Message;
+                    ViewData["MsgType"] = "danger";
+                }
+                return RedirectToAction("ShowUsers");
+            }
+        }
+
     }
 }

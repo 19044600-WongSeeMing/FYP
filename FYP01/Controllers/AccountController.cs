@@ -138,8 +138,8 @@ namespace FYP01.Controllers
             {
                 string insert =
                    @"INSERT INTO MesahUser(UserId, UserPw, FullName, Email, Address, PostalCode, Phone, UserRole) 
-                        VALUES('{0}',HASHBYTES('SHA1',{1}),'{2}','{3}','{4}','{5}','{6}','member')";
-                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email,usr.Address,usr.PostalCode,usr.Phone,usr.UserRole) == 1)
+                        VALUES('{0}',HASHBYTES('SHA1','{1}'),'{2}','{3}','{4}','{5}','{6}','member')";
+                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email, usr.Address, usr.PostalCode, usr.Phone, usr.UserRole) == 1)
                 {
                     ViewData["Message"] = "User Created";
                     ViewData["MsgType"] = "success";
@@ -191,7 +191,7 @@ namespace FYP01.Controllers
         {
             string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             string select = @"SELECT * FROM MesahUser WHERE UserId = '{0}'";
-            List<MesahUser> list = DBUtl.GetList<MesahUser>(select,userid);
+            List<MesahUser> list = DBUtl.GetList<MesahUser>(select, userid);
             if (list.Count == 1)
             {
                 return View(list[0]);
@@ -245,7 +245,7 @@ namespace FYP01.Controllers
         [Authorize]
         public JsonResult VerifyNewPassword(string NewPassword)
         {
-            
+
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -329,7 +329,7 @@ namespace FYP01.Controllers
         public JsonResult VerifyEmail(string Email)
         {
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
-            
+
             MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE Email= {Email}").FirstOrDefault();
 
             if (user != null)
@@ -337,7 +337,7 @@ namespace FYP01.Controllers
             else
                 return Json(false);
         }
-  
+
         public IActionResult ForgotPassword()
         {
             return View();
@@ -348,7 +348,7 @@ namespace FYP01.Controllers
         {
             var email = pw.Email;
             var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.ForgotPassword);
- 
+
             if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE Email ={email}") == 1)
 
                 ViewData["Msg"] = "Password Successfully Updated!";
@@ -358,42 +358,6 @@ namespace FYP01.Controllers
 
             return View();
         }
-        [Authorize(Roles = "manager")]
-
-        public IActionResult ShowUsers()
-        {
-            List<MesahUser> list = DBUtl.GetList<MesahUser>("SELECT * FROM MesahUser");
-            return View("ShowUsers", list);
-        }
-
-        [Authorize(Roles ="manager")]
-        public IActionResult DeleteUser(string id)
-        {
-            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            if (userid.Equals(id, StringComparison.InvariantCultureIgnoreCase))
-            {
-                TempData["Message"] = "Own ID cannot be deleted";
-                TempData["MsgType"] = "warning";
-            }
-            else
-            {
-                string delete = "DELETE FROM MesahUser WHERE UserId='{0}'";
-                int res = DBUtl.ExecSQL(delete, id);
-                if (res == 1)
-                {
-                    TempData["Message"] = "User Record Deleted";
-                    TempData["MsgType"] = "success";
-                }
-                else
-                {
-                    TempData["Message"] = DBUtl.DB_Message;
-                    TempData["MsgType"] = "danger";
-                }
-            }
-            return RedirectToAction("ShowUsers");
-        }
-
-        
-        }
 
     }
+}
