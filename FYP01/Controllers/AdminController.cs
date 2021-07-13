@@ -66,6 +66,35 @@ namespace FYP01.Controllers
             }
         }
 
+        [Authorize(Roles = "manager")]
+        public IActionResult DeleteProducts(int id)
+        {
+            string select = @"SELECT * FROM Product 
+                              WHERE ProductId={0}";
+            DataTable ds = DBUtl.GetTable(select, id);
+            if (ds.Rows.Count != 1)
+            {
+                TempData["Message"] = "Products record no longer exists.";
+                TempData["MsgType"] = "warning";
+            }
+            else
+            {
+                string delete = "DELETE FROM Product WHERE ProductId={0}";
+                int res = DBUtl.ExecSQL(delete, id);
+                if (res == 1)
+                {
+                    TempData["Message"] = "Product Deleted";
+                    TempData["MsgType"] = "success";
+                }
+                else
+                {
+                    TempData["Message"] = DBUtl.DB_Message;
+                    TempData["MsgType"] = "danger";
+                }
+            }
+            return RedirectToAction("ListOfProducts");
+        }
+
         private string DoPhotoUpload(IFormFile photo)
         {
             string fext = Path.GetExtension(photo.FileName);
