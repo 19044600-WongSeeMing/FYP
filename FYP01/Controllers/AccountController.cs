@@ -11,6 +11,9 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+
 
 
 namespace FYP01.Controllers
@@ -233,13 +236,19 @@ namespace FYP01.Controllers
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var pw_bytes = System.Text.Encoding.ASCII.GetBytes(CurrentPassword);
-            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw= HASHBYTES('SHA1', {pw_bytes})").FirstOrDefault();
+            //var pw_bytes = System.Text.Encoding.ASCII.GetBytes(CurrentPassword);
 
-            if (user != null)
-                return Json(true);
-            else
-                return Json(false);
+            //if (user != null)
+            //  return Json(true);
+            //else
+            //  return Json(false);
+
+            string select = $"SELECT * FROM MesahUser WHERE UserId='{userid}' AND UserPw = HASHBYTES('SHA1', '{CurrentPassword}')";
+            if (DBUtl.GetTable(select).Rows.Count > 0)
+            {
+                return Json(true); ;
+            }
+            return Json(false);
         }
 
         [Authorize]
@@ -249,14 +258,21 @@ namespace FYP01.Controllers
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var npw_bytes = System.Text.Encoding.ASCII.GetBytes(NewPassword);
+            //var npw_bytes = System.Text.Encoding.ASCII.GetBytes(NewPassword);
 
-            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw = HASHBYTES('SHA1', {npw_bytes})").FirstOrDefault();
+            //MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw = HASHBYTES('SHA1', {npw_bytes})").FirstOrDefault();
 
-            if (user != null)
-                return Json(false);
-            else
-                return Json(true);
+            //if (user != null)
+            //  return Json(false);
+            //else
+            //  return Json(true);
+
+            string select = $"SELECT * FROM MesahUser WHERE UserId='{userid}' AND UserPw = HASHBYTES('SHA1', '{NewPassword}')";
+            if (DBUtl.GetTable(select).Rows.Count > 0)
+            {
+                return Json(false); ;
+            }
+            return Json(true);
         }
 
         public IActionResult ChangePassword()
@@ -269,16 +285,21 @@ namespace FYP01.Controllers
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.NewPassword);
-            var cpw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.CurrentPassword);
+            //var cpw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.CurrentPassword);
 
-            if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE UserId={userid} AND UserPw = HASHBYTES('SHA1', {cpw_bytes})") == 1)
+            string sql = @"UPDATE MesahUser
+                                    SET UserPw = HASHBYTES('SHA1', '{1}') WHERE UserId= {0})";
 
+            if (DBUtl.ExecSQL(sql, userid, npw_bytes) == 1)
+            {
                 ViewData["Msg"] = "Password Successfully Updated!";
+            }
             else
-
+            {
                 ViewData["Msg"] = "Failed to update password!";
-
+            }
             return View();
+
         }
         //member & manager change username
         public IActionResult ChangeUsername()
@@ -286,8 +307,7 @@ namespace FYP01.Controllers
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             ViewData["userid"] = userid;
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
-            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid}").FirstOrDefault();
-            ViewData["Username"] = user.UserId;
+            
             return View();
         }
 
@@ -295,9 +315,10 @@ namespace FYP01.Controllers
         public IActionResult ChangeUsername(UserUpdate userUpdate)
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            int num_affected = _dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserId = {userUpdate.NewUsername} WHERE UserId = {userid}");
+            //int num_affected = _dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserId = {userUpdate.NewUsername} WHERE UserId = {userid}");
+            string sql = @"UPDATE MesahUser SET UserId = '{1}' WHERE UserId= '{0}')";
 
-            if (num_affected == 1)
+            if (DBUtl.ExecSQL(sql, userid, userUpdate.ConfirmNewUsername) == 1)
             {
                 return RedirectToAction("Login");
             }
@@ -314,14 +335,20 @@ namespace FYP01.Controllers
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {NewUserName}").FirstOrDefault();
+            //MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {NewUserName}").FirstOrDefault();
 
-            if (user != null)
-                return Json(false);
-            else
+            //if (user != null)
+            //  return Json(false);
+            //else
+            //  return Json(true);
+            string select = $"SELECT * FROM MesahUser WHERE UserId='{NewUserName}')";
+            if (DBUtl.GetTable(select).Rows.Count > 0)
+            {
                 return Json(true);
-        }
+            }
+            return Json(false);
 
+        }
 
 
         // member & manager forgot password
