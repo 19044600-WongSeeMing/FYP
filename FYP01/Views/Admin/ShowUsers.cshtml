@@ -1,6 +1,11 @@
 ﻿@model List<MesahUser>
 
-
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Message"]
+    </div>
+}
 
 <head>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
@@ -15,12 +20,15 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         .table {
-            padding:30px;
+            padding: 30px;
         }
+
             .table th {
                 background-color: #EEEEEE;
             }
+
         #manager {
             background-color: #F0C415;
         }
@@ -29,10 +37,15 @@
 </head>
 
 <body>
-    @if (TempData["Message"] != null)
+
+    @if (ViewData["Message"] != null)
     {
-        <div class="alert alert-@TempData["MsgType"]">
-            @TempData["Message"]
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-8">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    @Html.Raw(ViewData["Message"])
+                </div>
+            </div>
         </div>
     }
     <h2 style="margin: 45px; font-family:Inter;">ALL USERS</h2>

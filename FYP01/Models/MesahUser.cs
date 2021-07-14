@@ -36,6 +36,8 @@ namespace FYP01.Models
         [Required(ErrorMessage = "Please enter Phone Number!")]
         [RegularExpression(@"[89]\d{7}", ErrorMessage ="Invalid phone number")]
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Please Select a Role!")]
         public string UserRole { get; set; }
         public DateTime? LastLogin { get; set; }
     }
