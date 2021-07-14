@@ -1,11 +1,6 @@
 ﻿@model List<MesahUser>
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-@TempData["MsgType"]">
-        @TempData["Message"]
-    </div>
-}
+
 
 <head>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
@@ -34,6 +29,12 @@
 </head>
 
 <body>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-@TempData["MsgType"]">
+            @TempData["Message"]
+        </div>
+    }
     <h2 style="margin: 45px; font-family:Inter;">ALL USERS</h2>
     <a style=" margin: 45px;" asp-controller="Admin" asp-action="CreateUser">Create User</a>
     <div class="table">
@@ -60,13 +61,19 @@
                            asp-action="DeleteUser"
                            asp-route-id="@row.UserId"
                            onclick="return confirm('Delete User [@row.FullName]')"><i class="far fa-trash-alt"></i></a>
+                        |
+                        <a asp-controller="Admin"
+                           asp-action="EditUser"
+                           asp-route-id="@row.UserId">
+                            <i class="far fa-edit"></i>
+                        </a>
                     </td>
                 </tr>
             }
         </table>
 
     </div>
-    
+
 
 </body>
 
