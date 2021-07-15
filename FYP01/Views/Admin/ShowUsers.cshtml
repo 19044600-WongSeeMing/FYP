@@ -20,12 +20,15 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         .table {
-            padding:30px;
+            padding: 30px;
         }
+
             .table th {
                 background-color: #EEEEEE;
             }
+
         #manager {
             background-color: #F0C415;
         }
@@ -34,6 +37,17 @@
 </head>
 
 <body>
+
+    @if (ViewData["Message"] != null)
+    {
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-8">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    @Html.Raw(ViewData["Message"])
+                </div>
+            </div>
+        </div>
+    }
     <h2 style="margin: 45px; font-family:Inter;">ALL USERS</h2>
     <a style=" margin: 45px;" asp-controller="Admin" asp-action="CreateUser">Create User</a>
     <div class="table">
@@ -59,14 +73,20 @@
                         <a asp-controller="Admin"
                            asp-action="DeleteUser"
                            asp-route-id="@row.UserId"
-                           onclick="return confirm('Delete User [@row.FullName]')">Delete</a>
+                           onclick="return confirm('Delete User [@row.FullName]')"><i class="far fa-trash-alt"></i></a>
+                        |
+                        <a asp-controller="Admin"
+                           asp-action="EditUser"
+                           asp-route-id="@row.UserId">
+                            <i class="far fa-edit"></i>
+                        </a>
                     </td>
                 </tr>
             }
         </table>
 
     </div>
-    
+
 
 </body>
 

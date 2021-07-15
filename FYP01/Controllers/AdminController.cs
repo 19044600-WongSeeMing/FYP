@@ -103,6 +103,62 @@ namespace FYP01.Controllers
             return RedirectToAction("ListOfProducts");
         }
 
+        [Authorize]
+        public IActionResult ProductEdit(String id)
+        {
+            string sql = "SELECT * FROM Product WHERE ProductId={0}";
+            string select = String.Format(sql, id);
+            DataTable dt = DBUtl.GetTable(select);
+            if (dt.Rows.Count == 1)
+            {
+                Product product = new Product
+                {
+                    ProductId = (int)dt.Rows[0]["ProductId"],
+                    ProductName = dt.Rows[0]["ProductName"].ToString(),
+                    Price = (double)dt.Rows[0]["Price"],
+                    Photo = (IFormFile)dt.Rows[0]["Photo"],
+                };
+                return View(product);
+            }
+            else
+            {
+                TempData["Message"] = "Product Not Found";
+                TempData["MsgType"] = "warning";
+                return RedirectToAction("ListOfProducts");
+            }
+        }
+
+
+        public IActionResult ProductEditPost(String id)
+        {
+            IFormCollection form = HttpContext.Request.Form;
+            string ProductId = form["ProductID"].ToString().Trim();
+            string ProductName = form["ProductName"].ToString().Trim();
+            string Price = form["Price"].ToString().Trim();
+            string Photo = form["Photo"].ToString().Trim();
+
+
+            string sql = @"UPDATE Product
+                           SET ProductName = '{1}',
+                               Price   = {2},
+                               Photo ={3}
+                         WHERE ProductID = {0}";
+
+            string update = String.Format(sql, ProductId, ProductName, Price, Photo);
+            int res = DBUtl.ExecSQL(update);
+            if (res == 1)
+            {
+                TempData["Message"] = "Product Updated";
+                TempData["MsgType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = DBUtl.DB_Message;
+                TempData["MsgType"] = "danger";
+            }
+            return RedirectToAction("ListOfProducts");
+        }
+
         private string DoPhotoUpload(IFormFile photo)
         {
             string fext = Path.GetExtension(photo.FileName);
@@ -122,7 +178,7 @@ namespace FYP01.Controllers
             _env = environment;
         }
 
-        [Authorize(Roles ="manager")]
+        [Authorize(Roles = "manager")]
         public IActionResult ShowUsers()
         {
             List<MesahUser> list = DBUtl.GetList<MesahUser>("SELECT * FROM MesahUser");
@@ -189,6 +245,49 @@ namespace FYP01.Controllers
                 return RedirectToAction("ShowUsers");
             }
         }
+        [Authorize(Roles = "manager")]
+        public IActionResult EditUser(string id)
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string select = @"SELECT * FROM MesahUser WHERE UserId = '{0}'";
+            List<MesahUser> list = DBUtl.GetList<MesahUser>(select, id);
+            if (list.Count == 1)
+            {
+                MesahUser user = list[0];
+                return View("EditUser",user);
+            }
+            else
+            {
+                TempData["Message"] = "Data not found";
+                TempData["MsgType"] = "warning";
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public IActionResult EditUser(string id, MesahUser mesah)
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            string sql = @"UPDATE MesahUser
+                                    SET FullName ='{1}', UserRole ='{2}',
+                                  Email = '{3}', Phone ='{4}'
+                            WHERE UserId = '{0}'";
+
+            if (DBUtl.ExecSQL(sql, id, mesah.FullName, mesah.UserRole,mesah.Email, mesah.Phone) == 1)
+            {
+                ViewData["Message"] = "Profile Updated";
+                ViewData["MsgType"] = "success";
+            }
+            else
+            {
+                ViewData["Message"] = DBUtl.DB_Message;
+                ViewData["MsgType"] = "danger";
+            }
+            return RedirectToAction("ShowUsers");
+        }
+
 
     }
 }
