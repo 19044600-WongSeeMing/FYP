@@ -22,18 +22,25 @@
     @foreach (DataRow row in Model)
     {
         <tr>
-            <td>@row["Picture"]</td>
+            <td>
+                <a asp-route-id="@row["ProductID"]">
+                    <img src="/FoodPics/@row["Picture"]"
+                         width="150" height="90"
+                         class="pull-left" style="padding-right: 5px;" />
+                </a>
+            </td>
             <td>@row["ProductName"]</td>
             <td>@row["Price"]</td>
             <td style="text-align: center;">
                 <a asp-controller="Admin"
-                   asp-action="Delete"
-                   asp-route-id="@row["ProductID"]">
+                   asp-action="DeleteProducts"
+                   asp-route-id="@row["ProductID"]"
+                   onclick="return confirm('Delete Product @row["ProductName"]')">
                     <i class="far fa-trash-alt"></i>
                 </a> |
                 <a asp-controller="Admin"
-                   asp-action="Update"
-                   asp-route-id="@row["ProductId"]">
+                   asp-action="UpdateProducts"
+                   asp-route-id="@row["ProductID"]">
                     <i class="far fa-edit"></i>
                 </a>
             </td>

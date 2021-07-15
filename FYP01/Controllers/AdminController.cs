@@ -69,18 +69,26 @@ namespace FYP01.Controllers
         [Authorize(Roles = "manager")]
         public IActionResult DeleteProducts(int id)
         {
-            string select = @"SELECT * FROM Product 
-                              WHERE ProductId={0}";
-            DataTable ds = DBUtl.GetTable(select, id);
+            string sql = @"SELECT * FROM Product 
+                              WHERE ProductID={0}";
+
+            string select = String.Format(sql, id);
+
+            DataTable ds = DBUtl.GetTable(select);
             if (ds.Rows.Count != 1)
             {
-                TempData["Message"] = "Products record no longer exists.";
+                TempData["Message"] = "Product record no longer exists.";
                 TempData["MsgType"] = "warning";
             }
             else
             {
-                string delete = "DELETE FROM Product WHERE ProductId={0}";
+                string photoFile = ds.Rows[0]["picture"].ToString();
+                string fullpath = Path.Combine(_env.WebRootPath, "FoodPics/" + photoFile);
+                System.IO.File.Delete(fullpath);
+
+                string delete = @"DELETE FROM Product WHERE ProductID={0}";
                 int res = DBUtl.ExecSQL(delete, id);
+
                 if (res == 1)
                 {
                     TempData["Message"] = "Product Deleted";
@@ -100,7 +108,7 @@ namespace FYP01.Controllers
             string fext = Path.GetExtension(photo.FileName);
             string uname = Guid.NewGuid().ToString();
             string fname = uname + fext;
-            string fullpath = Path.Combine(_env.WebRootPath, "photos/" + fname);
+            string fullpath = Path.Combine(_env.WebRootPath, "FoodPics/" + fname);
             using (FileStream fs = new FileStream(fullpath, FileMode.Create))
             {
                 photo.CopyTo(fs);
