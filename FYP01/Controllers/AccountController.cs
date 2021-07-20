@@ -281,14 +281,16 @@ namespace FYP01.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult ChangePassword(PasswordUpdate pw)
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.NewPassword);
             //var cpw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.CurrentPassword);
+            //if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE UserId={userid} AND UserPw = HASHBYTES('SHA1', {cpw_bytes})") == 1)
 
             string sql = @"UPDATE MesahUser
-                                    SET UserPw = HASHBYTES('SHA1', '{1}') WHERE UserId= {0})";
+                                    SET UserPw = HASHBYTES('SHA1', '{1}') WHERE UserId= '{0}')";
 
             if (DBUtl.ExecSQL(sql, userid, npw_bytes) == 1)
             {
@@ -312,6 +314,7 @@ namespace FYP01.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult ChangeUsername(UserUpdate userUpdate)
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -344,9 +347,9 @@ namespace FYP01.Controllers
             string select = $"SELECT * FROM MesahUser WHERE UserId='{NewUserName}')";
             if (DBUtl.GetTable(select).Rows.Count > 0)
             {
-                return Json(true);
+                return Json(false);
             }
-            return Json(false);
+            return Json(true);
 
         }
 
