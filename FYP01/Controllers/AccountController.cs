@@ -285,14 +285,14 @@ namespace FYP01.Controllers
         public IActionResult ChangePassword(PasswordUpdate pw)
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.NewPassword);
+            //var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.NewPassword);
             //var cpw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.CurrentPassword);
             //if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE UserId={userid} AND UserPw = HASHBYTES('SHA1', {cpw_bytes})") == 1)
 
             string sql = @"UPDATE MesahUser
-                                    SET UserPw = HASHBYTES('SHA1', '{1}') WHERE UserId= '{0}')";
+                                    SET UserPw = HASHBYTES('SHA1', '{1}') WHERE UserId= '{0}' AND UserPw = HASHBYTES('SHA1', '{2}')";
 
-            if (DBUtl.ExecSQL(sql, userid, npw_bytes) == 1)
+            if (DBUtl.ExecSQL(sql, userid, pw.NewPassword,pw.CurrentPassword) == 1)
             {
                 ViewData["Msg"] = "Password Successfully Updated!";
             }
@@ -319,9 +319,9 @@ namespace FYP01.Controllers
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             //int num_affected = _dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserId = {userUpdate.NewUsername} WHERE UserId = {userid}");
-            string sql = @"UPDATE MesahUser SET UserId = '{1}' WHERE UserId= '{0}')";
+            string sql = @"UPDATE MesahUser SET UserId = '{1}' WHERE UserId= '{0}'";
 
-            if (DBUtl.ExecSQL(sql, userid, userUpdate.ConfirmNewUsername) == 1)
+            if (DBUtl.ExecSQL(sql, userid, userUpdate.NewUsername) == 1)
             {
                 return RedirectToAction("Login");
             }
@@ -333,21 +333,21 @@ namespace FYP01.Controllers
         }
 
         [Authorize]
-        public JsonResult VerifyNewUsername(string NewUserName)
+        public JsonResult VerifyNewUsername(string NewUsername)
         {
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
-            var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            //MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {NewUserName}").FirstOrDefault();
+            //MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {NewUsername}").FirstOrDefault();
 
             //if (user != null)
-            //  return Json(false);
+            //return Json(false);
             //else
-            //  return Json(true);
-            string select = $"SELECT * FROM MesahUser WHERE UserId='{NewUserName}')";
+            //return Json(true);
+            string select = $"SELECT * FROM MesahUser WHERE UserId='{NewUsername}'";
             if (DBUtl.GetTable(select).Rows.Count > 0)
             {
-                return Json(false);
+                return Json($"[{NewUsername}] already in use");
             }
             return Json(true);
 

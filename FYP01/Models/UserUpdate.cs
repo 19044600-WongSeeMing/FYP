@@ -12,7 +12,7 @@ namespace FYP01.Models
         public string CurrentUsername { get; set; }
 
         [Required(ErrorMessage = "Cannot be empty!")]
-        [Remote(action: "VerifyUserID", controller: "Account")]
+        [Remote("VerifyNewUsername","Account")]
         public string NewUsername { get; set; }
 
         [Required(ErrorMessage = "Cannot be empty!")]
