@@ -1,0 +1,109 @@
+﻿@model Testimonial
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+    <title>Add Testimonial</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #e9eaea;
+            user-select: none;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+        }
+
+        form {
+            margin: 10px;
+            padding-left: 25px
+        }
+
+        button {
+            background: #FF9E18;
+            background: -moz-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: -webkit-linear-gradient(left, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            background: linear-gradient(to right, #FF9E18 0%, #F0C415 43%, #F1EB22 100%);
+            width: 25%;
+            height: 40px;
+            margin: auto;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #70db70;
+            color: #FFFFFF;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            margin-bottom: 30px;
+            border-radius: 30px;
+        }
+
+            button:hover {
+                color: #4AB848;
+                list-style-type: none;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    @if (ViewData["Message"] != null)
+    {
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-8">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    @Html.Raw(ViewData["Message"])
+                </div>
+            </div>
+        </div>
+    }
+    <h2 style="margin: 45px; font-family:Inter;">Add Testmonial</h2>
+    <form asp-controller="Admin" asp-action="AddTestimonial" method="post">
+
+        <div class="form-group">
+            <label class="'control-label col-sm-5" asp-for="TestName"><b>Customer's Name</b></label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="TestName" />
+            </div>
+
+            <div class="col-sm-12">
+                <span asp-validation-for="TestName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="'control-label col-sm-5" asp-for="ProductName"><b>Product Name</b></label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="ProductName" />
+            </div>
+
+            <div class="col-sm-12">
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="'control-label col-sm-5" asp-for="Testi"><b>Testimonial</b></label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="Testi" />
+            </div>
+
+            <div class="col-sm-12">
+                <span asp-validation-for="Testi" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <button type="submit">Add</button>
+        </div>
+
+    </form>
+
+</body>

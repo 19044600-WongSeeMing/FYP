@@ -33,7 +33,8 @@ namespace FYP01.Controllers
 
         public IActionResult Testi()
         {
-            return View();
+            List<Testimonial> list = DBUtl.GetList<Testimonial>("SELECT * FROM Testimonial");
+            return View("Testi", list);
         }
 
     }

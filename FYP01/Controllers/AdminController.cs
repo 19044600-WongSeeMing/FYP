@@ -42,7 +42,6 @@ namespace FYP01.Controllers
             }
             else
             {
-                string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 string picfilename = DoPhotoUpload(product.Photo);
 
@@ -53,9 +52,9 @@ namespace FYP01.Controllers
 
                 if (DBUtl.ExecSQL(insert) == 1)
                 {
-                    TempData["Message"] = "Trip Successfully Added.";
+                    TempData["Message"] = "Product Successfully Added.";
                     TempData["MsgType"] = "success";
-                    return RedirectToAction("AddProducts");
+                    return RedirectToAction("ListOfProducts");
                 }
                 else
                 {
@@ -288,6 +287,83 @@ namespace FYP01.Controllers
             return RedirectToAction("ShowUsers");
         }
 
+        public IActionResult TestimonialList()
+        {
+            DataTable dt = DBUtl.GetTable("SELECT * FROM Testimonial");
+            return View("TestimonialList", dt.Rows);
+        }
+
+        public IActionResult AddTestimonial()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public IActionResult AddTestimonial(Testimonial testimo)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Message"] = "Invalid Input";
+                ViewData["MsgType"] = "warning";
+                return View("AddProducts");
+            }
+            else
+            {
+                string sql = @"INSERT INTO Testimonial (TestName, ProductName, Testi)
+                          VALUES('{0}', '{1}', '{2}')";
+
+                string insert = String.Format(sql, testimo.TestName.EscQuote(), testimo.ProductName.EscQuote(), testimo.Testi.EscQuote());
+
+                if (DBUtl.ExecSQL(insert) == 1)
+                {
+                    TempData["Message"] = "Testimonial Successfully Added.";
+                    TempData["MsgType"] = "success";
+                    return RedirectToAction("TestimonialList");
+                }
+                else
+                {
+                    ViewData["Message"] = DBUtl.DB_Message;
+                    ViewData["MsgType"] = "danger";
+                    return View("AddTestimonial");
+                }
+            }
+        }
+
+        [Authorize(Roles = "manager")]
+        public IActionResult DeleteTestimonial(int id)
+        {
+            string sql = @"SELECT * FROM Testimonial 
+                              WHERE TestID={0}";
+
+            string select = String.Format(sql, id);
+
+            DataTable ds = DBUtl.GetTable(select);
+            if (ds.Rows.Count != 1)
+            {
+                TempData["Message"] = "Product record no longer exists.";
+                TempData["MsgType"] = "warning";
+            }
+            else
+            {
+                string delete = @"DELETE FROM Testimonial WHERE TestID={0}";
+                int res = DBUtl.ExecSQL(delete, id);
+
+                if (res == 1)
+                {
+                    TempData["Message"] = "Testimonial Deleted";
+                    TempData["MsgType"] = "success";
+                }
+                else
+                {
+                    TempData["Message"] = DBUtl.DB_Message;
+                    TempData["MsgType"] = "danger";
+                }
+            }
+            return RedirectToAction("TestminialList");
+        }
+
+       //Update Testimonial havent
 
     }
 }

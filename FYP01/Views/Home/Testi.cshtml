@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model List<Testimonial>;
+
+<!DOCTYPE html>
 <html>
 <head>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
@@ -101,79 +103,23 @@
 
 <body>
 
-
     <div class="wrapper">
         <h1>Testimonials</h1>
+
+        @foreach (Testimonial row in Model)
+        {
             <div class="test">
                 <div class="test_name">
                     <div class="food_pic">
-                        <img src="~/FoodPics/nasi lemak chicken.jpg" />
+                        <img src="~/Logo/Without Slogan/mesah_delicacies_logo-11.png" />
                     </div>
-                    <h3>Mr Zul</h3>
-                    <p class="food">Nasi Lemak Chicken & Fish</p>
-                    <p>"Thank you for the nice Nasi Lemak. Our review is 5 STARS and Thumbs Up! My family loves the taste"</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasi sambal goreng 1.jpg" />
-                    </div>
-                    <h3>Mr Asyraf</h3>
-                    <p class="food">Nasi Sambal Goreng Chicken & Beef</p>
-                    <p>"The food was great, thank you. The rice was a bit too much and many couldn't finish, it was a bit of a wastage."</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasi lemak chicken.jpg" />
-                    </div>
-                    <h3>Ms Zhu Qing</h3>
-                    <p class="food">Nasi Lemak Chicken</p>
-                    <p>"Nasi Lemak was good! Chilli super nice. Maybe next time can have more add ons."</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasi sambal goreng 2.jpg" />
-                    </div>
-                    <h3>Ms Jayne</h3>
-                    <p>"The food was very nice. Definitely will order with you again"</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasi sambal goreng 1.jpg" />
-                    </div>
-                    <h3>Friend of Ms Fazira</h3>
-                    <p>"We enjoyed the lunch so much. Where did you get the Nasi Sambal Goreng from? Very delicious!"</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasiPadang.jpg" />
-                    </div>
-                    <h3>Friend of Ms Fazira</h3>
-                    <p>"Where did you order from? My husband said it's sedap!"</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasi sambal goreng 2.jpg" />
-                    </div>
-                    <h3>Friend of Ms Fazira</h3>
-                    <p>"Alhamdulillah. Sedap Nasi Goreng Sambal."</p>
-                </div>
-
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/FoodPics/nasi sambal goreng 1.jpg" />
-                    </div>
-                    <h3>Ms Fazira</h3>
-                    <p>"Nasi Sambal Goreng power!! Sedap gila, the ayam power!"</p>
+                    <h3>@row.TestName</h3>
+                    <p class="food">@row.ProductName</p>
+                    <p>@row.Testi</p>
                 </div>
             </div>
+            }
+
     </div>
 </body>
 </html>
-
-<!--idk how to make it square, ill stop here for now-->

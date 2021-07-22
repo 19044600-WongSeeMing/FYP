@@ -1,0 +1,43 @@
+﻿@model DataRowCollection
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Message"]
+    </div>
+}
+
+<a asp-controller="Admin"
+   asp-action="AddTestimonial">
+    <i class="fas fa-plus"></i> Add New Testimonial
+</a>
+
+<table class="table table-condensed table-hover">
+    <tr>
+        <th>Customer's Name</th>
+        <th>Product (If Specified)</th>
+        <th>Testimonial</th>
+        <th style="text-align:center;">Action</th>
+    </tr>
+    @foreach (DataRow row in Model)
+    {
+        <tr>
+            <td>@row["TestName"]</td>
+            <td>@row["ProductName"]</td>
+            <td>@row["Testi"]</td>
+            <td style="text-align: center;">
+                <a asp-controller="Admin"
+                   asp-action="DeleteTestimonial"
+                   asp-route-id="@row["TestID"]"
+                   onclick="return confirm('Delete Product @row["TestID"]')">
+                    <i class="far fa-trash-alt"></i>
+                </a> |
+                <a asp-controller="Admin"
+                   asp-action="UpdateTestimonial"
+                   asp-route-id="@row["TestID"]">
+                    <i class="far fa-edit"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
