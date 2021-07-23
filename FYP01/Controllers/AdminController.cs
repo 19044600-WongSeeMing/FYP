@@ -360,7 +360,7 @@ namespace FYP01.Controllers
                     TempData["MsgType"] = "danger";
                 }
             }
-            return RedirectToAction("TestminialList");
+            return RedirectToAction("TestimonialList");
         }
 
        //Update Testimonial havent
