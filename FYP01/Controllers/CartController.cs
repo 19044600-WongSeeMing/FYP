@@ -8,7 +8,7 @@ namespace FYP01.Controllers
 {
     public class CartController : Controller
     {
-        public IActionResult ShopCart()
+        public IActionResult Checkout()
         {
             return View();
         }
