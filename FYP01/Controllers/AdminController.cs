@@ -130,7 +130,7 @@ namespace FYP01.Controllers
 
         [HttpPost]
         [Authorize(Roles = "manager")]
-        public IActionResult ProductEdits(String id)
+        public IActionResult ProductEdit(String id,Product proUp)
         {
             IFormCollection form = HttpContext.Request.Form;
             string ProductId = form["ProductID"].ToString().Trim();
@@ -145,7 +145,7 @@ namespace FYP01.Controllers
                                Photo ={3}
                          WHERE ProductID = {0}";
 
-            string update = String.Format(sql, ProductId, ProductName, Price, Picture);
+            string update = String.Format(sql, proUp.ProductId, proUp.ProductName, proUp.Price, proUp.Picture);
             int res = DBUtl.ExecSQL(update);
             if (res == 1)
             {
