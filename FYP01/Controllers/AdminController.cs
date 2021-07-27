@@ -102,10 +102,11 @@ namespace FYP01.Controllers
             return RedirectToAction("ListOfProducts");
         }
 
-        [Authorize]
+        //SAVE MY LIFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        [Authorize(Roles = "manager")]
         public IActionResult ProductEdit(String id)
         {
-            string sql = "SELECT * FROM Product WHERE ProductId={0}";
+            string sql = "SELECT * FROM Product WHERE ProductName={0}";
             string select = String.Format(sql, id);
             DataTable dt = DBUtl.GetTable(select);
             if (dt.Rows.Count == 1)
@@ -117,7 +118,7 @@ namespace FYP01.Controllers
                     Price = (double)dt.Rows[0]["Price"],
                     Photo = (IFormFile)dt.Rows[0]["Photo"],
                 };
-                return View(product);
+                return View("ListOfProducts");
             }
             else
             {
@@ -127,14 +128,15 @@ namespace FYP01.Controllers
             }
         }
 
-
+        [HttpPost]
+        [Authorize(Roles = "manager")]
         public IActionResult ProductEditPost(String id)
         {
             IFormCollection form = HttpContext.Request.Form;
             string ProductId = form["ProductID"].ToString().Trim();
             string ProductName = form["ProductName"].ToString().Trim();
             string Price = form["Price"].ToString().Trim();
-            string Photo = form["Photo"].ToString().Trim();
+            string Picture = form["Photo"].ToString().Trim();
 
 
             string sql = @"UPDATE Product
@@ -143,7 +145,7 @@ namespace FYP01.Controllers
                                Photo ={3}
                          WHERE ProductID = {0}";
 
-            string update = String.Format(sql, ProductId, ProductName, Price, Photo);
+            string update = String.Format(sql, ProductId, ProductName, Price, Picture);
             int res = DBUtl.ExecSQL(update);
             if (res == 1)
             {
@@ -363,7 +365,48 @@ namespace FYP01.Controllers
             return RedirectToAction("TestimonialList");
         }
 
-       //Update Testimonial havent
+        //WHYYYY CANOOOT SOMEONE HELP MEEEEEEEEEEEEEEEEEEEEEEEEE
+        [Authorize(Roles = "manager")]
+        public IActionResult UpdateTestimonial(string id)
+        {
+            string testiId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string select = @"SELECT * FROM Testimonial WHERE UserId = '{0}'";
+            List<Testimonial> list = DBUtl.GetList<Testimonial>(select, id);
+            if (list.Count == 1)
+            {
+                Testimonial testi = list[0];
+                return View("UpdateTestimonial", testi);
+            }
+            else
+            {
+                TempData["Message"] = "Data not found";
+                TempData["MsgType"] = "warning";
+                return RedirectToAction("TestimonialList");
+            }
+        }
 
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public IActionResult UpdateTestimonial(string id, Testimonial testiUp)
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            string sql = @"UPDATE Testimonial
+                                    SET TestName ='{1}', ProductName ='{2}',
+                                  Testi = '{3}'
+                            WHERE TestId = '{0}'";
+
+            if (DBUtl.ExecSQL(sql, id, testiUp.TestName, testiUp.ProductName, testiUp.Testi) == 1)
+            {
+                ViewData["Message"] = "Profile Updated";
+                ViewData["MsgType"] = "success";
+            }
+            else
+            {
+                ViewData["Message"] = DBUtl.DB_Message;
+                ViewData["MsgType"] = "danger";
+            }
+            return RedirectToAction("ShowUsers");
+        }
     }
 }
