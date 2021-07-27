@@ -133,9 +133,9 @@ namespace FYP01.Controllers
                                   Photo = '{3}'
                             WHERE ProductId = '{0}'";
 
-            if (DBUtl.ExecSQL(sql, id, prodUp.ProductName, prodUp.Price, prodUp.Photo) == 1)
+            if (DBUtl.ExecSQL(sql, id, prodUp.Photo, prodUp.ProductName, prodUp.Price) == 1)
             {
-                ViewData["Message"] = "Profile Updated";
+                ViewData["Message"] = "Product Updated";
                 ViewData["MsgType"] = "success";
             }
             else
@@ -385,7 +385,7 @@ namespace FYP01.Controllers
 
             if (DBUtl.ExecSQL(sql, id, testiUp.TestName, testiUp.ProductName, testiUp.Testi) == 1)
             {
-                ViewData["Message"] = "Profile Updated";
+                ViewData["Message"] = "Testimonial Updated";
                 ViewData["MsgType"] = "success";
             }
             else
