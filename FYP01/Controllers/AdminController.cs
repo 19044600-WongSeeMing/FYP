@@ -365,12 +365,12 @@ namespace FYP01.Controllers
             return RedirectToAction("TestimonialList");
         }
 
-        //WHYYYY CANOOOT SOMEONE HELP MEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         [Authorize(Roles = "manager")]
         public IActionResult UpdateTestimonial(string id)
         {
             string testiId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            string select = @"SELECT * FROM Testimonial WHERE UserId = '{0}'";
+            string select = @"SELECT * FROM Testimonial WHERE TestId = '{0}'";
             List<Testimonial> list = DBUtl.GetList<Testimonial>(select, id);
             if (list.Count == 1)
             {
@@ -406,7 +406,7 @@ namespace FYP01.Controllers
                 ViewData["Message"] = DBUtl.DB_Message;
                 ViewData["MsgType"] = "danger";
             }
-            return RedirectToAction("ShowUsers");
+            return RedirectToAction("TestimonialList");
         }
     }
 }
