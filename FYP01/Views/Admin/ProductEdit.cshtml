@@ -94,16 +94,17 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="'control-label col-sm-5" asp-for="Photo"><b>Photo</b></label>
-            <div class="col-sm-4">
-                <input class="form-control" asp-for="Photo" />
-            </div>
-
-            <div class="col-sm-12">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Photo" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
         </div>
+        
 
         <div class="form-group row">
             <button type="submit">Save</button>
