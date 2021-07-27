@@ -130,7 +130,7 @@ namespace FYP01.Controllers
 
         [HttpPost]
         [Authorize(Roles = "manager")]
-        public IActionResult ProductEditPost(String id)
+        public IActionResult ProductEdits(String id)
         {
             IFormCollection form = HttpContext.Request.Form;
             string ProductId = form["ProductID"].ToString().Trim();
