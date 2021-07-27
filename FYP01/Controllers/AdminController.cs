@@ -104,25 +104,19 @@ namespace FYP01.Controllers
 
         //SAVE MY LIFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         [Authorize(Roles = "manager")]
-        public IActionResult ProductEdit(String id)
+        public IActionResult ProductEdit(string id)
         {
-            string sql = "SELECT * FROM Product WHERE ProductName={0}";
-            string select = String.Format(sql, id);
-            DataTable dt = DBUtl.GetTable(select);
-            if (dt.Rows.Count == 1)
+            string testiId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string select = @"SELECT * FROM Product WHERE ProductId = '{0}'";
+            List<Product> plist = DBUtl.GetList<Product>(select, id);
+            if (plist.Count == 1)
             {
-                Product product = new Product
-                {
-                    ProductId = (int)dt.Rows[0]["ProductId"],
-                    ProductName = dt.Rows[0]["ProductName"].ToString(),
-                    Price = (double)dt.Rows[0]["Price"],
-                    Photo = (IFormFile)dt.Rows[0]["Photo"],
-                };
-                return View("ListOfProducts");
+                Product prod = plist[0];
+                return View("ProductEdit", prod);
             }
             else
             {
-                TempData["Message"] = "Product Not Found";
+                TempData["Message"] = "Data not found";
                 TempData["MsgType"] = "warning";
                 return RedirectToAction("ListOfProducts");
             }
@@ -130,37 +124,30 @@ namespace FYP01.Controllers
 
         [HttpPost]
         [Authorize(Roles = "manager")]
-        public IActionResult ProductEdit(String id,Product proUp)
+        public IActionResult ProductEdit(string id, Product prodUp)
         {
-            IFormCollection form = HttpContext.Request.Form;
-            string ProductId = form["ProductID"].ToString().Trim();
-            string ProductName = form["ProductName"].ToString().Trim();
-            string Price = form["Price"].ToString().Trim();
-            string Picture = form["Photo"].ToString().Trim();
-
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             string sql = @"UPDATE Product
-                           SET ProductName = '{1}',
-                               Price   = {2},
-                               Photo ={3}
-                         WHERE ProductID = {0}";
+                                    SET ProductName ='{1}', Price ='{2}',
+                                  Photo = '{3}'
+                            WHERE ProductId = '{0}'";
 
-            string update = String.Format(sql, proUp.ProductId, proUp.ProductName, proUp.Price, proUp.Picture);
-            int res = DBUtl.ExecSQL(update);
-            if (res == 1)
+            if (DBUtl.ExecSQL(sql, id, prodUp.ProductName, prodUp.Price, prodUp.Photo) == 1)
             {
-                TempData["Message"] = "Product Updated";
-                TempData["MsgType"] = "success";
+                ViewData["Message"] = "Profile Updated";
+                ViewData["MsgType"] = "success";
             }
             else
             {
-                TempData["Message"] = DBUtl.DB_Message;
-                TempData["MsgType"] = "danger";
+                ViewData["Message"] = DBUtl.DB_Message;
+                ViewData["MsgType"] = "danger";
             }
             return RedirectToAction("ListOfProducts");
         }
+    
 
-        private string DoPhotoUpload(IFormFile photo)
+    private string DoPhotoUpload(IFormFile photo)
         {
             string fext = Path.GetExtension(photo.FileName);
             string uname = Guid.NewGuid().ToString();
