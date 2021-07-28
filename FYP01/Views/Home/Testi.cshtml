@@ -106,19 +106,27 @@
     <div class="wrapper">
         <h1>Testimonials</h1>
 
-        @foreach (Testimonial row in Model)
-        {
-            <div class="test">
-                <div class="test_name">
-                    <div class="food_pic">
-                        <img src="~/Logo/Without Slogan/mesah_delicacies_logo-11.png" />
+        <div class="row">
+            @foreach (Testimonial row in Model)
+            {
+                <div class="col-sm-3">
+
+                    <div class="test">
+                        <div class="test_name">
+                            <div class="food_pic">
+                                <img src="~/Logo/Without Slogan/mesah_delicacies_logo-11.png" />
+                            </div>
+                            <h3>@row.TestName</h3>
+                            <p class="food">@row.ProductName</p>
+                            <p>@row.Testi</p>
+                        </div>
                     </div>
-                    <h3>@row.TestName</h3>
-                    <p class="food">@row.ProductName</p>
-                    <p>@row.Testi</p>
+
                 </div>
-            </div>
+
             }
+        </div>
+
 
     </div>
 </body>
