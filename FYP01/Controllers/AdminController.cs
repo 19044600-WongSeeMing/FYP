@@ -42,7 +42,7 @@ namespace FYP01.Controllers
             }
             else
             {
-                String picfilename = DoPhotoUpload(product.Photo);
+                string picfilename = DoPhotoUpload(product.Photo);
 
                 string sql = @"INSERT INTO Product (ProductName, Price, Picture)
                           VALUES('{0}', '{1}', '{2}')";
