@@ -42,11 +42,12 @@ namespace FYP01.Controllers
             }
             else
             {
+                String picfilename = DoPhotoUpload(product.Photo);
 
                 string sql = @"INSERT INTO Product (ProductName, Price, Picture)
                           VALUES('{0}', '{1}', '{2}')";
 
-                string insert = String.Format(sql, product.ProductName.EscQuote(), product.Price, product.Photo);
+                string insert = String.Format(sql, product.ProductName.EscQuote(), product.Price, picfilename);
 
                 if (DBUtl.ExecSQL(insert) == 1)
                 {
