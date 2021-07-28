@@ -323,7 +323,7 @@ namespace FYP01.Controllers
 
             if (DBUtl.ExecSQL(sql, userid, userUpdate.NewUsername) == 1)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Logoff");
             }
             else
             {

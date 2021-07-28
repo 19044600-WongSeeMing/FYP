@@ -273,7 +273,7 @@ namespace FYP01.Controllers
                 ViewData["Message"] = DBUtl.DB_Message;
                 ViewData["MsgType"] = "danger";
             }
-            return RedirectToAction("ShowUsers");
+            return View("EditUser");
         }
 
         public IActionResult TestimonialList()
