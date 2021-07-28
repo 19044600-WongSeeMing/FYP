@@ -43,12 +43,10 @@ namespace FYP01.Controllers
             else
             {
 
-                string picfilename = DoPhotoUpload(product.Photo);
-
                 string sql = @"INSERT INTO Product (ProductName, Price, Picture)
                           VALUES('{0}', '{1}', '{2}')";
 
-                string insert = String.Format(sql, product.ProductName.EscQuote(), product.Price, picfilename);
+                string insert = String.Format(sql, product.ProductName.EscQuote(), product.Price, product.Photo);
 
                 if (DBUtl.ExecSQL(insert) == 1)
                 {
@@ -131,10 +129,10 @@ namespace FYP01.Controllers
 
             string sql = @"UPDATE Product
                                     SET ProductName ='{1}', Price ='{2}',
-                                  Photo = '{3}'
+                                  Picture = '{3}'
                             WHERE ProductId = '{0}'";
 
-            if (DBUtl.ExecSQL(sql, id, prodUp.ProductName, prodUp.Price, prodUp.Photo) == 1)
+            if (DBUtl.ExecSQL(sql, id, prodUp.ProductName, prodUp.Price, prodUp.Picture) == 1)
             {
                 ViewData["Message"] = "Product Updated";
                 ViewData["MsgType"] = "success";
