@@ -7,43 +7,76 @@
     </div>
 }
 
-<a asp-controller="Admin"
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    @section ScriptSection{
+
+    }
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .table {
+            padding: 30px;
+        }
+
+            .table th {
+                background-color: #EEEEEE;
+            }
+
+        #manager {
+            background-color: #F0C415;
+        }
+    </style>
+
+</head>
+<h2 style="margin: 45px; font-family:Inter;">ALL PRODUCTS</h2>
+<a style=" margin: 45px;" asp-controller="Admin"
    asp-action="AddProducts">
-    <i class="fas fa-plus"></i> Add New Product
+    <i class="fas fa-plus"></i>  Add New Product
 </a>
 
-<table class="table table-condensed table-hover">
-    <tr>
-        <th>Picture</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th style="text-align:center;">Action</th>
-    </tr>
-    @foreach (DataRow row in Model)
-    {
+<div class="table">
+
+    <table class="table table-condensed table-hover">
         <tr>
-            <td>
-                <a asp-route-id="@row["ProductID"]">
-                    <img src="/FoodPics/@row["Picture"]"
-                         width="150" height="90"
-                         class="pull-left" style="padding-right: 5px;" />
-                </a>
-            </td>
-            <td>@row["ProductName"]</td>
-            <td>@row["Price"]</td>
-            <td style="text-align: center;">
-                <a asp-controller="Admin"
-                   asp-action="DeleteProducts"
-                   asp-route-id="@row["ProductID"]"
-                   onclick="return confirm('Delete Product @row["ProductName"]')">
-                    <i class="far fa-trash-alt"></i>
-                </a> |
-                <a asp-controller="Admin"
-                   asp-action="ProductEdit"
-                   asp-route-id="@row["ProductID"]">
-                    <i class="far fa-edit"></i>
-                </a>
-            </td>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th style="text-align:center;">Action</th>
         </tr>
-    }
-</table>
+        @foreach (DataRow row in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-route-id="@row["ProductID"]">
+                        <img src="/FoodPics/@row["Picture"]"
+                             width="150" height="90"
+                             class="pull-left" style="padding-right: 5px;" />
+                    </a>
+                </td>
+                <td>@row["ProductName"]</td>
+                <td>@row["Price"]</td>
+                <td style="text-align: center;">
+                    <a asp-controller="Admin"
+                       asp-action="DeleteProducts"
+                       asp-route-id="@row["ProductID"]"
+                       onclick="return confirm('Delete Product @row["ProductName"]')">
+                        <i class="far fa-trash-alt"></i>
+                    </a> |
+                    <a asp-controller="Admin"
+                       asp-action="ProductEdit"
+                       asp-route-id="@row["ProductID"]">
+                        <i class="far fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>

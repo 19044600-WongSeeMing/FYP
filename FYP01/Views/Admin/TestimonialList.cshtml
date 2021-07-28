@@ -7,37 +7,71 @@
     </div>
 }
 
-<a asp-controller="Admin"
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    @section ScriptSection{
+
+    }
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .table {
+            padding: 30px;
+        }
+
+            .table th {
+                background-color: #EEEEEE;
+            }
+
+        #manager {
+            background-color: #F0C415;
+        }
+    </style>
+
+</head>
+
+<h2 style="margin: 45px; font-family:Inter;">ALL TESTIMONIALS</h2>
+<a style="margin: 45px;"asp-controller="Admin"
    asp-action="AddTestimonial">
-    <i class="fas fa-plus"></i> Add New Testimonial
+    <i class="fas fa-plus"></i>  Add New Testimonial
 </a>
 
-<table class="table table-condensed table-hover">
-    <tr>
-        <th>Customer's Name</th>
-        <th>Product (If Specified)</th>
-        <th>Testimonial</th>
-        <th style="text-align:center;">Action</th>
-    </tr>
-    @foreach (DataRow row in Model)
-    {
+<div class="table">
+
+    <table class="table table-condensed table-hover">
         <tr>
-            <td>@row["TestName"]</td>
-            <td>@row["ProductName"]</td>
-            <td>@row["Testi"]</td>
-            <td style="text-align: center;">
-                <a asp-controller="Admin"
-                   asp-action="DeleteTestimonial"
-                   asp-route-id="@row["TestID"]"
-                   onclick="return confirm('Delete Product @row["TestID"]')">
-                    <i class="far fa-trash-alt"></i>
-                </a> |
-                <a asp-controller="Admin"
-                   asp-action="UpdateTestimonial"
-                   asp-route-id="@row["TestID"]">
-                    <i class="far fa-edit"></i>
-                </a>
-            </td>
+            <th>Customer's Name</th>
+            <th>Product (If Specified)</th>
+            <th>Testimonial</th>
+            <th style="text-align:center;">Action</th>
         </tr>
-    }
-</table>
+        @foreach (DataRow row in Model)
+        {
+            <tr>
+                <td>@row["TestName"]</td>
+                <td>@row["ProductName"]</td>
+                <td>@row["Testi"]</td>
+                <td style="text-align: center;">
+                    <a asp-controller="Admin"
+                       asp-action="DeleteTestimonial"
+                       asp-route-id="@row["TestID"]"
+                       onclick="return confirm('Delete Product @row["TestID"]')">
+                        <i class="far fa-trash-alt"></i>
+                    </a> |
+                    <a asp-controller="Admin"
+                       asp-action="UpdateTestimonial"
+                       asp-route-id="@row["TestID"]">
+                        <i class="far fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
