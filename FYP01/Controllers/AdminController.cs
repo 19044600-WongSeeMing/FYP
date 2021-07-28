@@ -106,7 +106,7 @@ namespace FYP01.Controllers
         [Authorize(Roles = "manager")]
         public IActionResult ProductEdit(string id)
         {
-            string testiId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string prodiId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             string select = @"SELECT * FROM Product WHERE ProductId = '{0}'";
             List<Product> plist = DBUtl.GetList<Product>(select, id);
             if (plist.Count == 1)
@@ -126,14 +126,15 @@ namespace FYP01.Controllers
         [Authorize(Roles = "manager")]
         public IActionResult ProductEdit(string id, Product prodUp)
         {
-            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string prodId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
 
             string sql = @"UPDATE Product
                                     SET ProductName ='{1}', Price ='{2}',
                                   Photo = '{3}'
                             WHERE ProductId = '{0}'";
 
-            if (DBUtl.ExecSQL(sql, id, prodUp.Photo, prodUp.ProductName, prodUp.Price) == 1)
+            if (DBUtl.ExecSQL(sql, id, prodUp.ProductName, prodUp.Price, prodUp.Photo) == 1)
             {
                 ViewData["Message"] = "Product Updated";
                 ViewData["MsgType"] = "success";
@@ -376,7 +377,7 @@ namespace FYP01.Controllers
         [Authorize(Roles = "manager")]
         public IActionResult UpdateTestimonial(string id, Testimonial testiUp)
         {
-            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string testId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             string sql = @"UPDATE Testimonial
                                     SET TestName ='{1}', ProductName ='{2}',
