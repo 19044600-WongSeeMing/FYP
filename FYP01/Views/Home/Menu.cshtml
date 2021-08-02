@@ -171,8 +171,7 @@
         }
     </style>
 
-
-    <script>
+     <script>
         $(function () {
 
             $("#cart-items").slideUp();
@@ -224,10 +223,15 @@
             });
         })
     </script>
+    
+
 
     <title>Menu Page</title>
 </head>
 <body>
+
+
+    
 
     <div class="header">
         <div class="cart">
@@ -237,19 +241,19 @@
                 <p id="items-basket"></p>
             </div>
         </div>
-        <form action="Menu.cshtml" method="get" >
-            <div id="cart-items">
-                <ol id="list-item">
-                </ol>
 
-                <div class="total-text">
-                    <p>Total Amount: </p>
-                    <p id="total-price"></p>
-                </div>
+        <div id="cart-items">
+            <ol id="list-item">
+            </ol>
 
-                <button type="submit" formaction="Checkout.cshtml">Checkout</button>
+            <div class="total-text">
+                <p>Total Amount: </p>
+                <p id="total-price"></p>
             </div>
-            </form>
+
+
+        </div>
+
 
 
 
@@ -276,14 +280,11 @@
                         <p class="price">@row.Price</p>
                     </div>
                     <div class="product-btns">
-                        <button type="button" class="btn-cart">
-                            add to cart
+                        <a href="#" data-name=@row.ProductName data-price=@row.Price class="add-to-cart btn btn-primary">Add to cart</a>
+                        
                             <span><i class="fas fa-plus" id="basket"></i></span>
-                        </button>
-                        <button type="button" class="btn-buy">
-                            buy now
-                            <span><i class="fas fa-shopping-cart"></i></span>
-                        </button>
+                       
+
                     </div>
                 </div>
             </div>
@@ -291,5 +292,7 @@
 
         </div>
     }
+
+   
 </body>
 </html>
