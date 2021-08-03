@@ -236,13 +236,6 @@ namespace FYP01.Controllers
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            //var pw_bytes = System.Text.Encoding.ASCII.GetBytes(CurrentPassword);
-
-            //if (user != null)
-            //  return Json(true);
-            //else
-            //  return Json(false);
-
             string select = $"SELECT * FROM MesahUser WHERE UserId='{userid}' AND UserPw = HASHBYTES('SHA1', '{CurrentPassword}')";
             if (DBUtl.GetTable(select).Rows.Count > 0)
             {
@@ -257,15 +250,6 @@ namespace FYP01.Controllers
 
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            //var npw_bytes = System.Text.Encoding.ASCII.GetBytes(NewPassword);
-
-            //MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {userid} AND UserPw = HASHBYTES('SHA1', {npw_bytes})").FirstOrDefault();
-
-            //if (user != null)
-            //  return Json(false);
-            //else
-            //  return Json(true);
 
             string select = $"SELECT * FROM MesahUser WHERE UserId='{userid}' AND UserPw = HASHBYTES('SHA1', '{NewPassword}')";
             if (DBUtl.GetTable(select).Rows.Count > 0)
@@ -285,9 +269,6 @@ namespace FYP01.Controllers
         public IActionResult ChangePassword(PasswordUpdate pw)
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.NewPassword);
-            //var cpw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.CurrentPassword);
-            //if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE UserId={userid} AND UserPw = HASHBYTES('SHA1', {cpw_bytes})") == 1)
 
             string sql = @"UPDATE MesahUser
                                     SET UserPw = HASHBYTES('SHA1', '{1}') WHERE UserId= '{0}' AND UserPw = HASHBYTES('SHA1', '{2}')";
@@ -318,7 +299,6 @@ namespace FYP01.Controllers
         public IActionResult ChangeUsername(UserUpdate userUpdate)
         {
             var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //int num_affected = _dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserId = {userUpdate.NewUsername} WHERE UserId = {userid}");
             string sql = @"UPDATE MesahUser SET UserId = '{1}' WHERE UserId= '{0}'";
 
             if (DBUtl.ExecSQL(sql, userid, userUpdate.NewUsername) == 1)
@@ -336,14 +316,7 @@ namespace FYP01.Controllers
         public JsonResult VerifyNewUsername(string NewUsername)
         {
             DbSet<MesahUser> dbs = _dbContext.MesahUser;
-            //var userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            //MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE UserId = {NewUsername}").FirstOrDefault();
-
-            //if (user != null)
-            //return Json(false);
-            //else
-            //return Json(true);
             string select = $"SELECT * FROM MesahUser WHERE UserId='{NewUsername}'";
             if (DBUtl.GetTable(select).Rows.Count > 0)
             {
@@ -353,41 +326,6 @@ namespace FYP01.Controllers
 
         }
 
-
-        // member & manager forgot password
-        [AllowAnonymous]
-        public JsonResult VerifyEmail(string Email)
-        {
-            DbSet<MesahUser> dbs = _dbContext.MesahUser;
-
-            MesahUser user = dbs.FromSqlInterpolated($"SELECT * FROM MesahUser WHERE Email= {Email}").FirstOrDefault();
-
-            if (user != null)
-                return Json(true);
-            else
-                return Json(false);
-        }
-
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult ForgotPassword(PasswordUpdate pw)
-        {
-            var email = pw.Email;
-            var npw_bytes = System.Text.Encoding.ASCII.GetBytes(pw.ForgotPassword);
-
-            if (_dbContext.Database.ExecuteSqlInterpolated($"UPDATE MesahUser SET UserPw = HASHBYTES('SHA1', {npw_bytes}) WHERE Email ={email}") == 1)
-
-                ViewData["Msg"] = "Password Successfully Updated!";
-            else
-
-                ViewData["Msg"] = "Failed to update password!";
-
-            return View();
-        }
 
     }
 }
