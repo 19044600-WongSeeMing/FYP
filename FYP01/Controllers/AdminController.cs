@@ -395,5 +395,34 @@ namespace FYP01.Controllers
             }
             return RedirectToAction("TestimonialList");
         }
+
+        [Authorize(Roles = "manager")]
+        public IActionResult About()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public IActionResult EditAbout(string id, About aboutNew)
+        {
+
+            string sql = @"UPDATE About
+                            SET AboutText = '{1}'
+                            WHERE AboutId = '{0}'";
+
+            if (DBUtl.ExecSQL(sql, id, aboutNew.AboutText) == 1)
+            {
+                ViewData["Message"] = "About Updated";
+                ViewData["MsgType"] = "success";
+            }
+            else
+            {
+                ViewData["Message"] = DBUtl.DB_Message;
+                ViewData["MsgType"] = "danger";
+            }
+            return RedirectToAction("About");
+        }
     }
 }
