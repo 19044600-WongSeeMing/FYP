@@ -101,7 +101,7 @@ namespace FYP01.Controllers
             return RedirectToAction("ListOfProducts");
         }
 
-        //SAVE MY LIFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         [Authorize(Roles = "manager")]
         public IActionResult ProductEdit(string id)
         {
